@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by gawa on 01.05.17.
- */
+/** Created by gawa on 01.05.17. */
 @Service
 public class UserServiceImpl implements UserService {
 

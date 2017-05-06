@@ -9,9 +9,7 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-/**
- * Created by gawa on 01.05.17.
- */
+/** Created by gawa on 01.05.17. */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {

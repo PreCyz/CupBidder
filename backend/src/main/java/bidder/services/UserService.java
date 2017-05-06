@@ -4,9 +4,7 @@ import bidder.model.users.*;
 
 import java.util.List;
 
-/**
- * Created by gawa on 01.05.17.
- */
+/** Created by gawa on 01.05.17. */
 public interface UserService {
 	List<User> getAllUsers();
 

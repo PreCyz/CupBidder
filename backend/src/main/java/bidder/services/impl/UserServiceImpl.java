@@ -1,0 +1,85 @@
+package bidder.services.impl;
+
+import bidder.model.users.*;
+import bidder.repositories.*;
+import bidder.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Created by gawa on 01.05.17.
+ */
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	@Cacheable(cacheNames = "allUsers")
+	public List<User> getAllUsers() {
+		return userRepository.findAll(new Sort(Sort.Direction.ASC, "lastName"));
+	}
+
+	@Override
+	public Bidder getBidderByNickname(String nickname) {
+		return userRepository.findByNickname(nickname);
+	}
+
+	@Override
+	public User getUserById(String id) {
+		return userRepository.findById(id);
+	}
+
+	@Override
+	@CacheEvict(cacheNames = {"allUsers","allBidders","allGamblers","allAdmins"})
+	public int addUsers(List<? extends User> users) {
+		final List<User> excludedUsers = users.stream()
+				.filter(user -> userRepository.findByEmail(user.getEmail()) != null)
+				.collect(Collectors.toList());
+		final List<User> usersToAdd = users.stream()
+				.filter(user -> userRepository.findByEmail(user.getEmail()) == null)
+				.collect(Collectors.toList());
+		final List<User> saved = userRepository.save(usersToAdd);
+		int excludedUsersTotal = excludedUsers.size() + (saved == null ? 0 : saved.size());
+		return excludedUsersTotal;
+	}
+
+	@Override
+	@CacheEvict(cacheNames = {"allUsers","allBidders","allGamblers","allAdmins"})
+	public boolean addUser(User user) {
+		final User userExists = userRepository.findByEmail(user.getEmail());
+		if (userExists != null) {
+			return false;
+		}
+		final User savedUser = userRepository.save(user);
+		return savedUser != null;
+	}
+
+	@Override
+	@Cacheable(cacheNames = "allBidders")
+	public List<Bidder> getAllBidders() {
+		final List<? extends User> users = userRepository.findByType(UserType.Bidder.name());
+		return users.stream().map(user -> (Bidder) user).collect(Collectors.toList());
+	}
+
+	@Override
+	@Cacheable(cacheNames = "allGamblers")
+	public List<Gambler> getAllGamblers() {
+		final List<? extends User> users = userRepository.findByType(UserType.Gambler.name());
+		return users.stream().map(user -> (Gambler) user).collect(Collectors.toList());
+	}
+
+	@Override
+	@Cacheable(cacheNames = "allAdmins")
+	public List<Admin> getAllAdmins() {
+		final List<? extends User> users = userRepository.findByType(UserType.Admin.name());
+		return users.stream().map(user -> (Admin) user).collect(Collectors.toList());
+	}
+
+}

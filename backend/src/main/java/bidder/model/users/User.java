@@ -2,10 +2,12 @@ package bidder.model.users;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by gawa on 01.05.17.
  */
+@Document(collection = "users")
 public class User {
 
 	@Id
@@ -17,7 +19,7 @@ public class User {
 	protected UserType type;
 
 	public User() {
-		this.type = UserType.None;
+		this.type = UserType.Watcher;
 	}
 
 	public String getId() {

@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * Created by gawa on 01.05.17.
  */
-@Document(collection = "user")
+@Document(collection = "users")
 public class Gambler extends Bidder {
 
 	protected Double moneyPayed;

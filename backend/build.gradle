@@ -34,6 +34,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-jersey')
     compile('org.springframework.boot:spring-boot-starter-web')
 
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.0")
+
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

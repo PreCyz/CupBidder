@@ -11,7 +11,7 @@ import java.util.List;
 
 /** Created by gawa on 06.05.17. */
 @Document(collection = "cups")
-public class Cup extends CommonFields {
+public class Cup extends CommonAttributes {
 
 	private String name;
 	@JsonSerialize(using = LocalDateSerializer.class)

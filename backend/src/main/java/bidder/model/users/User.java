@@ -1,11 +1,11 @@
 package bidder.model.users;
 
-import bidder.model.CommonFields;
+import bidder.model.CommonAttributes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /** Created by gawa on 01.05.17. */
 @Document(collection = "users")
-public class User extends CommonFields {
+public class User extends CommonAttributes {
 
 	private String firstName;
 	private String lastName;

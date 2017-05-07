@@ -1,19 +1,17 @@
 package bidder.model.match;
 
+import bidder.model.CommonAttributes;
 import com.fasterxml.jackson.databind.annotation.*;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 /** Created by gawa on 06.05.17. */
 @Document(collection = "games")
-public class Game {
+public class Game extends CommonAttributes {
 
-	@Id
-	private String id;
 	private String homeTeamName;
 	private String awayTeamName;
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -26,10 +24,6 @@ public class Game {
 		this.homeTeamName = homeTeamName;
 		this.awayTeamName = awayTeamName;
 		this.startDateTime = startDateTime;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getHomeTeamName() {

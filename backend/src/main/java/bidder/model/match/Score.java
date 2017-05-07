@@ -1,18 +1,14 @@
 package bidder.model.match;
 
-import org.springframework.data.annotation.Id;
+import bidder.model.CommonAttributes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-/**
- * Created by gawa on 06.05.17.
- */
+/** Created by gawa on 06.05.17. */
 @Document(collection = "scores")
-public class Score {
+public class Score extends CommonAttributes {
 
-	@Id
-	private String id;
 	private Game game;
 	private int homeTeamScore;
 	private int awayTeamScore;
@@ -25,10 +21,6 @@ public class Score {
 
 	public void setGame(Game game) {
 		this.game = game;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public int getHomeTeamScore() {

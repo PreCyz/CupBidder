@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 
 /** Created by gawa on 07.05.17. */
-public class CommonFields {
+public class CommonAttributes {
 
 	@Id
 	private String id;
@@ -19,7 +19,7 @@ public class CommonFields {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime lastModificationDate;
 
-	public CommonFields() {
+	public CommonAttributes() {
 		creationDate = LocalDateTime.now();
 	}
 

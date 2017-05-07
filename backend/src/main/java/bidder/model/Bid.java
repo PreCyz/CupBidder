@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /** Created by gawa on 01.05.17.*/
 @Document(collection = "bids")
-public class Bid extends CommonFields {
+public class Bid extends CommonAttributes {
 
 	private Bidder bidder;
 	private Score score;

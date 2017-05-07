@@ -14,25 +14,25 @@ public class CommonFields {
 	private String id;
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime createDate;
+	private LocalDateTime creationDate;
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime lastModificationDate;
 
 	public CommonFields() {
-		createDate = LocalDateTime.now();
+		creationDate = LocalDateTime.now();
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public LocalDateTime getCreateDate() {
-		return createDate;
+	public LocalDateTime getCreationDate() {
+		return creationDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
-		this.createDate = createDate;
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public LocalDateTime getLastModificationDate() {

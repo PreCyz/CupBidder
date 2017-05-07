@@ -1,18 +1,18 @@
 import bidder.model.users.*;
-import bidder.repositories.*;
+import bidder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "bidder")
 public class ImporterApplication implements CommandLineRunner {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ImporterApplication.class, args);
@@ -26,18 +26,15 @@ public class ImporterApplication implements CommandLineRunner {
 	}
 
 	private void loadDB() {
-		userRepository.deleteAll();
+		userService.dropAllUsers();
 		System.out.printf("Adding users.%n");
-		userRepository.save(newAdmin());
-		userRepository.save(newUser());
-		userRepository.save(newBidder());
-		userRepository.save(newGambler());
+		userService.addUsers(Arrays.asList(newAdmin(), newUser(), newBidder(), newGambler()));
 	}
 
 	private void verify() {
-		final List<User> all = userRepository.findAll();
+		final List<User> all = userService.getAllUsers();
 		System.out.printf("%d users were loaded from DB.%n", all.size());
-		Bidder bidder = userRepository.findByNickname("bidDer");
+		Bidder bidder = userService.getBidderByNickname("bidDer");
 		System.out.printf("Read %s of type %s from DB.%n", bidder.getNickname(), bidder.getType());
 
 		verify(UserType.Bidder);
@@ -49,26 +46,26 @@ public class ImporterApplication implements CommandLineRunner {
 	}
 
 	private void verify(UserType userType) {
-		List<? extends User> bidders = userRepository.findByType(userType.name());
-		System.out.printf("There are %d %s in DB.%n", bidders.size(), userType.name());
-		for (User user : bidders) {
-			switch (userType) {
-				case Watcher:
-					System.out.printf("Read %s of type %s from DB.%n", user.getFirstName(), user.getType());
-					break;
-				case Admin:
-					Admin admin = (Admin) user;
-					System.out.printf("Read %s of type %s from DB.%n", admin.getFirstName(), admin.getType());
-					break;
-				case Bidder:
-					Bidder bidder = (Bidder) user;
-					System.out.printf("Read %s of type %s from DB.%n", bidder.getNickname(), bidder.getType());
-					break;
-				case Gambler:
-					Gambler gambler = (Gambler) user;
-					System.out.printf("Read %s of type %s from DB.%n", gambler.getNickname(), gambler.getType());
-					break;
-			}
+		switch (userType) {
+			case Watcher:
+				displayList(userType, userService.getAllWatchers());
+				break;
+			case Admin:
+				displayList(userType,  userService.getAllAdmins());
+				break;
+			case Bidder:
+				displayList(userType, userService.getAllBidders());
+				break;
+			case Gambler:
+				displayList(userType, userService.getAllGamblers());
+				break;
+		}
+	}
+
+	private <T extends User> void displayList(UserType userType, List<T> list) {
+		System.out.printf("There are %d %s in DB.%n", list.size(), userType.name());
+		for (User user : list) {
+			System.out.printf("Read %s of type %s from DB.%n", user.getFirstName(), user.getType());
 		}
 	}
 
@@ -82,9 +79,9 @@ public class ImporterApplication implements CommandLineRunner {
 
 	private User newUser() {
 		User user = new User();
-		user.setEmail("user@cup.com");
-		user.setFirstName("User");
-		user.setLastName("User");
+		user.setEmail("watcher@cup.com");
+		user.setFirstName("watcher");
+		user.setLastName("watcher");
 		return user;
 	}
 

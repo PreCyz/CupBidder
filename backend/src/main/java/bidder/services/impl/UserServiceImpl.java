@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
+	public void dropAllUsers() {
+		userRepository.deleteAll();
+	}
+
+	@Override
 	@Cacheable(cacheNames = "allUsers")
 	public List<User> getAllUsers() {
 		return userRepository.findAll(new Sort(Sort.Direction.ASC, "lastName"));
@@ -77,6 +82,12 @@ public class UserServiceImpl implements UserService {
 	public List<Admin> getAllAdmins() {
 		final List<? extends User> users = userRepository.findByType(UserType.Admin.name());
 		return users.stream().map(user -> (Admin) user).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<User> getAllWatchers() {
+		final List<? extends User> users = userRepository.findByType(UserType.Watcher.name());
+		return users.stream().map(user -> (User) user).collect(Collectors.toList());
 	}
 
 }

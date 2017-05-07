@@ -6,6 +6,9 @@ import java.util.List;
 
 /** Created by gawa on 01.05.17. */
 public interface UserService {
+
+	void dropAllUsers();
+
 	List<User> getAllUsers();
 
 	Bidder getBidderByNickname(String nickname);
@@ -21,4 +24,6 @@ public interface UserService {
 	List<Gambler> getAllGamblers();
 
 	List<Admin> getAllAdmins();
+
+	List<User> getAllWatchers();
 }

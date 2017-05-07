@@ -21,32 +21,88 @@ public class ImporterApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.printf("Start importer.%nDropping database.%n");
+		loadDB();
+		verify();
+	}
+
+	private void loadDB() {
 		userRepository.deleteAll();
-		System.out.printf("Adding new user.%n");
+		System.out.printf("Adding users.%n");
+		userRepository.save(newAdmin());
 		userRepository.save(newUser());
 		userRepository.save(newBidder());
-		System.out.printf("Adding new bidder.%n");
+		userRepository.save(newGambler());
+	}
+
+	private void verify() {
 		final List<User> all = userRepository.findAll();
 		System.out.printf("%d users were loaded from DB.%n", all.size());
-		final Bidder gawa = userRepository.findByNickname("Gawa");
-		System.out.printf("Read %s of type %s from DB.%n", gawa.getNickname(), gawa.getType());
+		Bidder bidder = userRepository.findByNickname("bidDer");
+		System.out.printf("Read %s of type %s from DB.%n", bidder.getNickname(), bidder.getType());
+
+		verify(UserType.Bidder);
+		verify(UserType.Gambler);
+		verify(UserType.Admin);
+		verify(UserType.Watcher);
+
 		System.out.println("Importer out.");
 	}
 
-	private Bidder newBidder() {
+	private void verify(UserType userType) {
+		List<? extends User> bidders = userRepository.findByType(userType.name());
+		System.out.printf("There are %d %s in DB.%n", bidders.size(), userType.name());
+		for (User user : bidders) {
+			switch (userType) {
+				case Watcher:
+					System.out.printf("Read %s of type %s from DB.%n", user.getFirstName(), user.getType());
+					break;
+				case Admin:
+					Admin admin = (Admin) user;
+					System.out.printf("Read %s of type %s from DB.%n", admin.getFirstName(), admin.getType());
+					break;
+				case Bidder:
+					Bidder bidder = (Bidder) user;
+					System.out.printf("Read %s of type %s from DB.%n", bidder.getNickname(), bidder.getType());
+					break;
+				case Gambler:
+					Gambler gambler = (Gambler) user;
+					System.out.printf("Read %s of type %s from DB.%n", gambler.getNickname(), gambler.getType());
+					break;
+			}
+		}
+	}
+
+	private User newAdmin() {
+		User admin = new Admin();
+		admin.setEmail("admin@cup.com");
+		admin.setFirstName("Admin");
+		admin.setLastName("Admin");
+		return admin;
+	}
+
+	private User newUser() {
+		User user = new User();
+		user.setEmail("user@cup.com");
+		user.setFirstName("User");
+		user.setLastName("User");
+		return user;
+	}
+
+	private User newBidder() {
 		Bidder bidder = new Bidder();
-		bidder.setNickname("Gawa");
-		bidder.setEmail("precpaw@op.pl");
+		bidder.setNickname("bidDer");
+		bidder.setEmail("bidder@cup.com");
 		bidder.setFirstName("Bidder");
 		bidder.setLastName("Bidder");
 		return bidder;
 	}
 
-	private User newUser() {
-		User user = new User();
-		user.setEmail("user@op.pl");
-		user.setFirstName("User");
-		user.setLastName("UserLastname");
-		return user;
+	private User newGambler() {
+		Gambler gambler = new Gambler();
+		gambler.setFirstName("Gambler");
+		gambler.setLastName("Gambler");
+		gambler.setEmail("gambler@cup.com");
+		gambler.setNickname("gamBler");
+		return gambler;
 	}
 }

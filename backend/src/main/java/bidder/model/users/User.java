@@ -1,33 +1,25 @@
 package bidder.model.users;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+import bidder.model.CommonFields;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- * Created by gawa on 01.05.17.
- */
+/** Created by gawa on 01.05.17. */
 @Document(collection = "users")
-public class User {
+public class User extends CommonFields {
 
-	@Id
-	protected String id;
-	protected String firstName;
-	protected String lastName;
-	@Indexed(unique = true, collection = "user", name = "emailIndex")
-	protected String email;
-	protected UserType type;
+	private String firstName;
+	private String lastName;
+	//@Indexed(unique = true, collection = "user", name = "emailIndex")
+	private String email;
+	private UserType type;
 
 	public User() {
+		super();
 		this.type = UserType.Watcher;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	protected User(UserType userType) {
+		this.type = userType;
 	}
 
 	public String getFirstName() {

@@ -1,21 +1,19 @@
 package bidder.model.users;
 
-import bidder.model.Bid;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Size;
-import java.util.*;
-
-/**
- * Created by gawa on 01.05.17.
- */
+/** Created by gawa on 01.05.17. */
 @Document(collection = "users")
 public class Bidder extends User {
 
-	protected String nickname;
+	private String nickname;
+
+	protected Bidder(UserType userType) {
+		super(userType);
+	}
 
 	public Bidder() {
-		this.type = UserType.Bidder;
+		this(UserType.Bidder);
 	}
 
 	public String getNickname() {
@@ -26,7 +24,4 @@ public class Bidder extends User {
 		this.nickname = nickname;
 	}
 
-	public UserType getType() {
-		return type;
-	}
 }

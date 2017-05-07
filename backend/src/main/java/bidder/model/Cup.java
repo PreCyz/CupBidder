@@ -2,9 +2,8 @@ package bidder.model;
 
 import bidder.model.match.Game;
 import com.fasterxml.jackson.databind.annotation.*;
-import com.fasterxml.jackson.datatype.jsr310.deser.*;
-import com.fasterxml.jackson.datatype.jsr310.ser.*;
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -12,10 +11,8 @@ import java.util.List;
 
 /** Created by gawa on 06.05.17. */
 @Document(collection = "cups")
-public class Cup {
+public class Cup extends CommonFields {
 
-	@Id
-	private String id;
 	private String name;
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -25,8 +22,8 @@ public class Cup {
 	private LocalDate endDate;
 	private List<Game> games;
 
-	public String getId() {
-		return id;
+	public Cup() {
+		super();
 	}
 
 	public String getName() {

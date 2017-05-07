@@ -1,7 +1,7 @@
 package bidder.services.impl;
 
 import bidder.model.users.*;
-import bidder.repositories.*;
+import bidder.repositories.UserRepository;
 import bidder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
@@ -44,8 +44,7 @@ public class UserServiceImpl implements UserService {
 				.filter(user -> userRepository.findByEmail(user.getEmail()) == null)
 				.collect(Collectors.toList());
 		final List<User> saved = userRepository.save(usersToAdd);
-		int excludedUsersTotal = excludedUsers.size() + (saved == null ? 0 : saved.size());
-		return excludedUsersTotal;
+		return excludedUsers.size() + (saved == null ? 0 : saved.size());
 	}
 
 	@Override

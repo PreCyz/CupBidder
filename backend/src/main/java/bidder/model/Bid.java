@@ -1,26 +1,26 @@
 package bidder.model;
 
+import bidder.model.common.CommonAttributes;
 import bidder.model.match.Score;
-import bidder.model.users.Bidder;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /** Created by gawa on 01.05.17.*/
 @Document(collection = "bids")
 public class Bid extends CommonAttributes {
 
-	private Bidder bidder;
+	private String bidderId;
 	private Score score;
 
 	public Bid() {
 		super();
 	}
 
-	public Bidder getBidder() {
-		return bidder;
+	public String getBidderId() {
+		return bidderId;
 	}
 
-	public void setBidder(Bidder bidder) {
-		this.bidder = bidder;
+	public void setBidderId(String bidderId) {
+		this.bidderId = bidderId;
 	}
 
 	public Score getScore() {

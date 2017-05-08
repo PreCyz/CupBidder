@@ -1,4 +1,4 @@
-package bidder.model;
+package bidder.model.common;
 
 import com.fasterxml.jackson.databind.annotation.*;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;

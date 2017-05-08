@@ -1,6 +1,6 @@
 package bidder.model.users;
 
-import bidder.model.CommonAttributes;
+import bidder.model.common.CommonAttributes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /** Created by gawa on 01.05.17. */

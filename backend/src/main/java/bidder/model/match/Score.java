@@ -1,6 +1,6 @@
 package bidder.model.match;
 
-import bidder.model.CommonAttributes;
+import bidder.model.common.CommonAttributes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;

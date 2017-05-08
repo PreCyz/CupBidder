@@ -1,12 +1,13 @@
 package bidder.model;
 
+import bidder.model.common.CommonAttributes;
 import bidder.model.match.Game;
 import com.fasterxml.jackson.databind.annotation.*;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.*;
+import com.fasterxml.jackson.datatype.jsr310.ser.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.List;
 
 /** Created by gawa on 06.05.17. */
@@ -14,12 +15,12 @@ import java.util.List;
 public class Cup extends CommonAttributes {
 
 	private String name;
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate startDate;
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate endDate;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime startDateTime;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime endDateTime;
 	private List<Game> games;
 
 	public Cup() {
@@ -34,20 +35,20 @@ public class Cup extends CommonAttributes {
 		this.name = name;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
 	}
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 
-	public LocalDate getEndDate() {
-		return endDate;
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
 	}
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
+	public void setEndDateTime(LocalDateTime endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	public List<Game> getGames() {

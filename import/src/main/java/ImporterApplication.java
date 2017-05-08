@@ -1,5 +1,7 @@
+import bidder.model.Cup;
+import bidder.model.match.Game;
 import bidder.model.users.*;
-import bidder.services.UserService;
+import bidder.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +16,12 @@ public class ImporterApplication implements CommandLineRunner {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private GameService gameService;
+
+	@Autowired
+	private CupService cupService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ImporterApplication.class, args);
 	}
@@ -21,11 +29,28 @@ public class ImporterApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.printf("Start importer.%nDropping database.%n");
-		loadDB();
+		loadUsers();
+		loadCup();
 		verify();
 	}
 
-	private void loadDB() {
+	private void loadCup() {
+		System.out.println("Dropping cup.");
+		cupService.dropCups();
+		System.out.println("Dropping games.");
+		gameService.dropGames();
+
+		JsonParser jsonParser = new JsonParser();
+		Cup cup = jsonParser.cup();
+		System.out.println("Loading games.");
+		List<Game> loadedGames = gameService.addAllGames(cup.getGames());
+		cup.setGames(loadedGames);
+		System.out.println("Loading cup.");
+		cupService.addCup(cup);
+	}
+
+	private void loadUsers() {
+		System.out.println("Dropping users.");
 		userService.dropAllUsers();
 		System.out.printf("Adding users.%n");
 		userService.addUsers(Arrays.asList(newAdmin(), newUser(), newBidder(), newGambler()));

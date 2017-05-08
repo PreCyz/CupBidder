@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.*;
 import java.io.*;
 
 /** Created by gawa on 07.05.17. */
-public class JsonParser {
+public class ModelMapper {
 
 	private final String cupJson = "src/main/resources/sample/cup.json";
 
-	public JsonParser() { }
+	public ModelMapper() { }
 
 	public Cup cup() {
 		Cup cup = null;

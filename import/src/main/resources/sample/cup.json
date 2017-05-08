@@ -1,0 +1,12 @@
+{
+  "Cup" : {
+    "name" : "Sample cup",
+    "startDateTime" : "2017-05-07T19:00:00",
+    "endDateTime" : "2018-07-31T19:00:00",
+    "games" : [
+      {"homeTeamName":"Rekle", "awayTeamName":"Ruda", "startDateTime":"2017-05-07T08:00:00"},
+      {"homeTeamName":"Góra", "awayTeamName":"Długołęka", "startDateTime":"2017-05-07T08:20:00"},
+      {"homeTeamName":"Krypno", "awayTeamName":"Peńskie", "startDateTime":"2017-05-07T08:40:00"}
+    ]
+  }
+}

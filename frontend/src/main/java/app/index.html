@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cup bidder</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="login/login.js"></script>
+    <script src="overview/overview.js"></script>
+</head>
+<body ng-app="mainApp">
+
+<div ng-controller="mainAppCtrl">
+    <a ng-hide="hideSignIn" href="#!/login">Sign in</a>
+</div>
+
+<div ng-view></div>
+
+</body>
+</html>

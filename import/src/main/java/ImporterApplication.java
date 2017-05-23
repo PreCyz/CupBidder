@@ -40,8 +40,8 @@ public class ImporterApplication implements CommandLineRunner {
 		System.out.println("Dropping games.");
 		gameService.dropGames();
 
-		JsonParser jsonParser = new JsonParser();
-		Cup cup = jsonParser.cup();
+		ModelMapper modelMapper = new ModelMapper();
+		Cup cup = modelMapper.cup();
 		System.out.println("Loading games.");
 		List<Game> loadedGames = gameService.addAllGames(cup.getGames());
 		cup.setGames(loadedGames);

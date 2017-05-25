@@ -1,4 +1,38 @@
 <div ng-controller="overviewCtrl">
     <p>OverView</p>
+
+    <table class="cups">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th/>
+        </tr>
+        <tr ng-repeat="cup in cups">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ cup.name }}</td>
+            <td>{{ cup.startDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
+            <td>{{ cup.endDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
+            <td ng-show="!showGame"> <input type="button" value="Show games" ng-click="showGames($index)"> </td>
+            <td ng-show="showGame"> <input type="button" value="Hide games" ng-click="hideGames()"> </td>
+        </tr>
+    </table>
+
+    <div ng-show="showGame">
+        <table class="cups">
+            <tr>
+                <th>Home</th>
+                <th>Away</th>
+                <th>Start date</th>
+            </tr>
+            <tr ng-repeat="game in games">
+                <td>{{ game.homeTeamName }}</td>
+                <td>{{ game.awayTeamName }}</td>
+                <td>{{ game.startDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
+            </tr>
+        </table>
+    </div>
+
     <a href="#!/" ng-click="logout()">Logout</a>
 </div>

@@ -2,6 +2,7 @@ package bidder.model;
 
 import bidder.model.common.CommonAttributes;
 import bidder.model.match.Game;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.*;
 import com.fasterxml.jackson.datatype.jsr310.deser.*;
 import com.fasterxml.jackson.datatype.jsr310.ser.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 /** Created by gawa on 06.05.17. */
 @Document(collection = "cups")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cup extends CommonAttributes {
 
 	private String name;

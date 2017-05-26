@@ -1,12 +1,26 @@
+var GET_CUPS = {
+   method : "GET",
+   url : "http://localhost:8080/api/cup"
+}
+
+function POST_CUP(updateCupData) {
+    return {
+       method: 'POST',
+       url: 'http://localhost:8080/api/cup/'+updateCupData.id+'/save',
+       /*headers: {
+           `'Content-Type': undefined
+       },*/
+       data: updateCupData
+    };
+}
+
 mainAppModule.controller('overviewCtrl', function($rootScope, $scope, $http) {
-    $http({
-        method : "GET",
-        url : "http://localhost:8080/api/cup"
-    }).then(function mySuccess(response) {
+    $http(GET_CUPS).then(function success(response) {
         $scope.cups = response.data.cups;
-    }, function myError(response) {
-        $scope.requestErrorMsg = response.statusText;
-    });
+    }, function handleError(scope, response) {
+           scope.requestErrorMsg = response.statusText;
+       }
+    );
 
     $rootScope.hideSignIn = true;
     $scope.logout = function() {
@@ -39,21 +53,14 @@ mainAppModule.controller('overviewCtrl', function($rootScope, $scope, $http) {
         $scope.edit = false;
         $scope.cups[index].name = $scope.cupNames[index];
         var cupId = $scope.cups[index].id;
-
-        $http({
-            method: 'POST',
-            url: 'http://localhost:8080/api/cup/'+cupId+'/save',
-            /*headers: {
-                `'Content-Type': undefined
-            },*/
-            data: { id : cupId, name : $scope.cups[index].name }
-            })
+        var updateCupData = { id : cupId, name : $scope.cups[index].name }
+        $http( POST_CUP(updateCupData) )
         .then(
-            function(data, status) {
+            function success(updateCupData, status) {
                 $scope.saveCompleted = true;
             },
-            function(data, status) {
-                alert( "failure message: " + JSON.stringify({data: data}));
+            function handleError(scope, response) {
+                scope.requestErrorMsg = response.statusText;
             }
         );
     }

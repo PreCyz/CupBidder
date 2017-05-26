@@ -49,6 +49,11 @@ mainAppModule.controller('overviewCtrl', function($rootScope, $scope, $http) {
         }
     }
 
+    $scope.cancelEditing = function() {
+        $scope.edit = false;
+        $scope.cupNames = [];
+    }
+
     $scope.saveCup = function(index) {
         $scope.edit = false;
         $scope.cups[index].name = $scope.cupNames[index];

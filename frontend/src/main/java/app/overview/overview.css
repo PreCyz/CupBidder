@@ -1,7 +1,15 @@
-.cups table, th, td {
-    border: 1px solid black;
+.marginLeft15 {
+    margin-left: 15px;
 }
 
-.cups td {
-    padding: 0px 5px 0px 5px;
+.padding5 {
+    padding: 5px 5px 5px 5px;
+}
+
+.thPadding5 th {
+    padding: 5px 5px 5px 5px;
+}
+
+.tdPadding5 td {
+    padding: 5px 5px 5px 5px;
 }

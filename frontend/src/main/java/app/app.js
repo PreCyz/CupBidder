@@ -1,19 +1,23 @@
 var mainAppModule = angular.module('mainApp', ['ngRoute']);
 
-mainAppModule.config(['$routeProvider', function($routeProvider) {
+mainAppModule.config(function($routeProvider) {
   $routeProvider
   .when('/login', {
     templateUrl: 'login/login.html',
-    controller: 'loginCtrl'
+    controller: 'LoginController'
   })
   .when('/overview', {
     templateUrl: 'overview/overview.html',
-    controller: 'overviewCtrl'
+    controller: 'OverviewController'
+  })
+  .when('/bid', {
+    templateUrl: 'bid/bid.html',
+    controller: 'BidController'
   })
   .otherwise({redirectTo : '/'});
-}]);
+});
 
-mainAppModule.controller('mainAppCtrl', function($rootScope, $location) {
+mainAppModule.controller('MainAppController', function($rootScope, $location) {
     $rootScope.myUrl = $location.absUrl();
     $rootScope.hideSignIn = false;
     $rootScope.showSignIn = function() {

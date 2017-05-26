@@ -1,4 +1,11 @@
-<div ng-controller="overviewCtrl" class="container">
+<div ng-controller="OverviewController" class="container">
+    <div class="from-group">
+        <p>
+            <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/bid">All games</a>
+        </p>
+        <hr/>
+    </div>
+
     <h3>Overview</h3>
 
     <div class="table-responsive marginLeft15">
@@ -24,8 +31,8 @@
                 <td ng-if="!edit">{{ cup.name }}</td>
                 <td ng-if="edit"> <input type="text" ng-model="cupNames[$index]" class="form-control"/> </td>
 
-                <td>{{ cup.startDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
-                <td>{{ cup.endDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
+                <td>{{ cup.startDateTime | date : 'yyyy MMM d @ HH:mm' }}</td>
+                <td>{{ cup.endDateTime | date : 'yyyy MMM d @ HH:mm' }}</td>
 
                 <td ng-if="!showGame"> <button type="button" class="btn btn-success btn-sm" ng-click="showGames($index)">Show games</button> </td>
                 <td ng-if="showGame"> <button type="button" class="btn btn-warning btn-sm" ng-click="hideGames()">Hide games</button></td>
@@ -35,25 +42,8 @@
 
     <p ng-if="saveCompleted" ng-mouseover="disappear()"> Record is changed.</p>
 
-    <div ng-if="showGame" class="table-responsive marginLeft15">
-        <table class="table-condensed">
-            <tr>
-                <th>Home</th>
-                <th/>
-                <th>Away</th>
-                <th>Date</th>
-            </tr>
-            <tr ng-repeat="game in games">
-                <td>{{ game.homeTeamName }}</td>
-                <td> - </td>
-                <td>{{ game.awayTeamName }}</td>
-                <td>{{ game.startDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
-            </tr>
-        </table>
+    <div ng-if="showGame">
+        <div ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
     </div>
 
-    <div class="from-group">
-        <h1> </h1>
-        <p><a href="#!/" ng-click="logout()">Logout</a></p>
-    </div>
 </div>

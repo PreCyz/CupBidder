@@ -1,3 +1,11 @@
 .width25 {
     width: 25%;
 }
+
+.marginLeft15 div {
+    margin-left: 15px;
+}
+
+.floatRight div {
+    float: right;
+}

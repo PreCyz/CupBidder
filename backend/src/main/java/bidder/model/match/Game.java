@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-/** Created by gawa on 06.05.17. */
+/** Created by Gawa on 06.05.17. */
 @Document(collection = "games")
 public class Game extends CommonAttributes {
 

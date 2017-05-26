@@ -1,8 +1,8 @@
-mainAppModule.controller('loginCtrl', function($rootScope, $scope) {
+mainAppModule.controller('LoginController', function($rootScope, $scope) {
     $rootScope.hideSignIn = true;
 
-    $scope.email = 'enter email';
-    $scope.password = '***';
+    $scope.email = 'sample@email.com';
+    $scope.password = 'qqq';
 
     $scope.goToStartup = function() {
     console.log('goToStartup() call.')

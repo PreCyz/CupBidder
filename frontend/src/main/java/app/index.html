@@ -18,14 +18,16 @@
     <script src="app.js"></script>
     <script src="login/login.js"></script>
     <script src="overview/overview.js"></script>
+    <script src="bid/bid.js"></script>
 </head>
 <body ng-app="mainApp">
 
-<div ng-controller="mainAppCtrl" class="container">
-    <p><a ng-hide="hideSignIn" href="#!/login">Sign in</a></p>
-</div>
+    <div ng-controller="MainAppController" class="container">
+        <h1> </h1>
+        <p><a ng-hide="hideSignIn" href="#!/login">Sign in</a></p>
+    </div>
 
-<div ng-view></div>
+    <div ng-view></div>
 
 </body>
 </html>

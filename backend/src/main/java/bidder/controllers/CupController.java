@@ -17,13 +17,13 @@ public class CupController {
     @Autowired
     private CupService cupService;
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @GetMapping(path = "")
     public CupResponse getCups() {
         CupResponse response = new CupResponse(cupService.getCups());
         return response;
     }
 
-    @RequestMapping(path = "/{cupId}/save")
+    @PostMapping(path = "/{cupId}/save")
     public void save(@PathVariable String cupId, @Valid @RequestBody UpdateCupRequest updateCupRequest) {
         cupService.updateCup(cupId, updateCupRequest.getName());
     }

@@ -1,0 +1,26 @@
+<table class="table-condensed">
+    <tr>
+        <th>Home</th>
+        <th ng-if="showAddScore" style="width: 25px;"> </th>
+        <th> </th>
+        <th ng-if="showAddScore" style="width: 25px;"> </th>
+        <th>Away</th>
+        <th>Date</th>
+        <th ng-if="showAddScore" >Action</th>
+    </tr>
+    <tr ng-repeat="game in games">
+        <td>{{ game.homeTeamName }}</td>
+        <td ng-if="showAddScore">
+            <input type="text" ng-model="game.homeScore" class="form-control"/>
+        </td>
+        <td> - </td>
+        <td ng-if="showAddScore">
+            <input type="text" ng-model="game.awayScore" class="form-control"/>
+        </td>
+        <td>{{ game.awayTeamName }}</td>
+        <td>{{ game.startDateTime | date : 'EEEE - MMM d @ H:mm' }}</td>
+        <td ng-if="showAddScore">
+            <button type="button" class="btn btn-success btn-sm" ng-click="addScore($index)">Add</button>
+        </td>
+    </tr>
+</table>

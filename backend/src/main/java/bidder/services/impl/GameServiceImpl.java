@@ -29,4 +29,9 @@ public class GameServiceImpl implements GameService {
 	public List<Game> addAllGames(List<Game> games) {
 		return gameRepository.save(games);
 	}
+
+	@Override
+    public List<Game> getAllGames() {
+	    return gameRepository.findAll();
+    }
 }

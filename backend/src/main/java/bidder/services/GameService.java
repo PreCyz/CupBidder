@@ -10,5 +10,6 @@ public interface GameService {
 	void dropGames();
 	Game addGame(Game game);
 	List<Game> addAllGames(List<Game> games);
+	List<Game> getAllGames();
 
 }

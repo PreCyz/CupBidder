@@ -1,9 +1,9 @@
-var GET_CUPS = {
+var CUPS_GET = {
    method : "GET",
    url : "http://localhost:8080/api/cup"
 }
 
-function POST_CUP(updateCupData) {
+function SAVE_CUP_POST(updateCupData) {
     return {
        method: 'POST',
        url: 'http://localhost:8080/api/cup/'+updateCupData.id+'/save',
@@ -14,20 +14,22 @@ function POST_CUP(updateCupData) {
     };
 }
 
-mainAppModule.controller('overviewCtrl', function($rootScope, $scope, $http) {
-    $http(GET_CUPS).then(function success(response) {
-        $scope.cups = response.data.cups;
-    }, function handleError(scope, response) {
-           scope.requestErrorMsg = response.statusText;
-       }
-    );
-
+mainAppModule.controller('OverviewController', function($rootScope, $scope, $http) {
     $rootScope.hideSignIn = true;
+
+    $http(CUPS_GET)
+    .then(function success(response) {
+        $scope.cups = response.data.cups;
+    }, function handleError(response) {
+        $scope.requestErrorMsg = response.statusText;
+    });
+
     $scope.logout = function() {
         console.log('logout() call.')
         $rootScope.showSignIn();
     }
 
+    $scope.showAddScore = false;
     $scope.showGame = false;
     $scope.showGames = function(index) {
         console.log('showGames('+index+') call.');
@@ -38,6 +40,7 @@ mainAppModule.controller('overviewCtrl', function($rootScope, $scope, $http) {
     $scope.hideGames = function() {
         console.log('hideGames() call.');
         $scope.showGame = false;
+        $scope.showAddScore = false;
     }
 
     $scope.edit = false;
@@ -59,7 +62,7 @@ mainAppModule.controller('overviewCtrl', function($rootScope, $scope, $http) {
         $scope.cups[index].name = $scope.cupNames[index];
         var cupId = $scope.cups[index].id;
         var updateCupData = { id : cupId, name : $scope.cups[index].name }
-        $http( POST_CUP(updateCupData) )
+        $http( SAVE_CUP_POST(updateCupData) )
         .then(
             function success(updateCupData, status) {
                 $scope.saveCompleted = true;

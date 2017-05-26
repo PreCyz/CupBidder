@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="overview/overview.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="overview/overview.css">
+    <link rel="stylesheet" href="login/login.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
@@ -20,8 +21,8 @@
 </head>
 <body ng-app="mainApp">
 
-<div ng-controller="mainAppCtrl">
-    <a ng-hide="hideSignIn" href="#!/login">Sign in</a>
+<div ng-controller="mainAppCtrl" class="container">
+    <p><a ng-hide="hideSignIn" href="#!/login">Sign in</a></p>
 </div>
 
 <div ng-view></div>

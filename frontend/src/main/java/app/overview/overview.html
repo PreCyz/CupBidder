@@ -1,5 +1,5 @@
 <div ng-controller="overviewCtrl" class="container">
-    <p>Overview</p>
+    <h3>Overview</h3>
 
     <div class="table-responsive marginLeft15">
         <table class="table-bordered thPadding5 tdPadding5">
@@ -22,7 +22,7 @@
                 </td>
 
                 <td ng-if="!edit">{{ cup.name }}</td>
-                <td ng-if="edit"> <input type="text" ng-model="cupNames[$index]" /> </td>
+                <td ng-if="edit"> <input type="text" ng-model="cupNames[$index]" class="form-control"/> </td>
 
                 <td>{{ cup.startDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
                 <td>{{ cup.endDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
@@ -41,7 +41,7 @@
                 <th>Home</th>
                 <th/>
                 <th>Away</th>
-                <th>Start date</th>
+                <th>Date</th>
             </tr>
             <tr ng-repeat="game in games">
                 <td>{{ game.homeTeamName }}</td>
@@ -52,5 +52,8 @@
         </table>
     </div>
 
-    <a href="#!/" ng-click="logout()">Logout</a>
+    <div class="from-group">
+        <h1> </h1>
+        <p><a href="#!/" ng-click="logout()">Logout</a></p>
+    </div>
 </div>

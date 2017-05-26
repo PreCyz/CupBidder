@@ -4,6 +4,7 @@
     <table class="cups">
         <tr>
             <th>No</th>
+            <th/>
             <th>Name</th>
             <th>Start date</th>
             <th>End date</th>
@@ -11,15 +12,23 @@
         </tr>
         <tr ng-repeat="cup in cups">
             <td>{{ $index + 1 }}</td>
-            <td>{{ cup.name }}</td>
+            <td ng-if="!edit"> <input type="button" value="Edit" ng-click="editCup($index)"> </td>
+            <td ng-if="edit"> <input type="button" value="Save" ng-click="saveCup($index)"> </td>
+
+            <td ng-if="!edit">{{ cup.name }}</td>
+            <td ng-if="edit"> <input type="text" ng-model="cupNames[$index]" /> </td>
+
             <td>{{ cup.startDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
             <td>{{ cup.endDateTime | date : 'yyyy-MM-dd HH:mm' }}</td>
-            <td ng-show="!showGame"> <input type="button" value="Show games" ng-click="showGames($index)"> </td>
-            <td ng-show="showGame"> <input type="button" value="Hide games" ng-click="hideGames()"> </td>
+
+            <td ng-if="!showGame"> <input type="button" value="Show games" ng-click="showGames($index)"> </td>
+            <td ng-if="showGame"> <input type="button" value="Hide games" ng-click="hideGames()"> </td>
         </tr>
     </table>
 
-    <div ng-show="showGame">
+    <p ng-if="saveCompleted" ng-mouseover="disappear()"> Record is changed.</p>
+
+    <div ng-if="showGame">
         <table class="cups">
             <tr>
                 <th>Home</th>

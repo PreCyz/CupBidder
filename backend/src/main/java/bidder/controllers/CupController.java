@@ -1,12 +1,12 @@
 package bidder.controllers;
 
+import bidder.model.web.request.UpdateCupRequest;
 import bidder.model.web.response.CupResponse;
 import bidder.services.CupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /** Created by gawa on 24/05/17.*/
 @RestController
@@ -21,5 +21,10 @@ public class CupController {
     public CupResponse getCups() {
         CupResponse response = new CupResponse(cupService.getCups());
         return response;
+    }
+
+    @RequestMapping(path = "/{cupId}/save")
+    public void save(@PathVariable String cupId, @Valid @RequestBody UpdateCupRequest updateCupRequest) {
+        cupService.updateCup(cupId, updateCupRequest.getName());
     }
 }

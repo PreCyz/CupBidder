@@ -7,6 +7,7 @@ import bidder.services.CupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /** Created by gawa on 2017-05-08. */
@@ -30,4 +31,12 @@ public class CupServiceImpl implements CupService {
 	public List<Cup> getCups() {
 		return cupRepository.findAll();
 	}
+
+    @Override
+    public void updateCup(String cupId, String name) {
+        Cup cup = cupRepository.findOne(cupId);
+        cup.setName(name);
+        cup.setLastModificationDate(LocalDateTime.now());
+        cupRepository.save(cup);
+    }
 }

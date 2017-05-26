@@ -10,4 +10,5 @@ public interface CupService {
 	void dropCups();
 	Cup addCup(Cup cup);
     List<Cup> getCups();
+	void updateCup(String cupId, String name);
 }

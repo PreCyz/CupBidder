@@ -15,7 +15,10 @@
             <input ng-if="!game.bidSet" type="text" ng-model="game.homeTeamScore" class="form-control" size="2"/>
             <span ng-if="game.bidSet" ng-bind="game.homeTeamScore"/>
         </td>
-        <td> : </td>
+        <td>
+            <span ng-if="showAddScore"> : </span>
+            <span ng-if="!showAddScore"> - </span>
+        </td>
         <td ng-if="showAddScore">
             <input ng-if="!game.bidSet" type="text" ng-model="game.awayTeamScore" class="form-control" size="2"/>
             <span ng-if="game.bidSet" ng-bind="game.awayTeamScore"/>

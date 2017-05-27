@@ -16,6 +16,7 @@ function SAVE_CUP_POST(updateCupData) {
 
 mainAppModule.controller('OverviewController', function($rootScope, $scope, $http) {
     $rootScope.hideSignIn = true;
+    $scope.showAddScore = false;
 
     $http(CUPS_GET)
     .then(function success(response) {
@@ -29,7 +30,6 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
         $rootScope.showSignIn();
     }
 
-    $scope.showAddScore = false;
     $scope.showGame = false;
     $scope.showGames = function(index) {
         console.log('showGames('+index+') call.');

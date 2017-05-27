@@ -1,4 +1,11 @@
 <div ng-controller="BidController" class="container">
-    <h3>All games in cup</h3>
+    <div class="from-group">
+        <p>
+            <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/overview">Overview</a>
+        </p>
+        <hr/>
+    </div>
+
+    <h3>All games</h3>
     <div ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
 </div>

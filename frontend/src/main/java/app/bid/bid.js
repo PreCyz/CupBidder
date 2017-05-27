@@ -9,6 +9,9 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http) {
     $http(GAMES_GET)
     .then(function success(response) {
         $scope.games = response.data.games;
+        for(var i = 0; i < $scope.games.length; i++) {
+            $scope.games[i].changed = false;
+        }
     }, function handleError(response) {
         $scope.requestErrorMsg = response.statusText;
     });
@@ -16,6 +19,7 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http) {
     $scope.showAddScore = true;
     $scope.addScore = function(index) {
         console.log('addScore('+index+') call.');
-        $scope.showAddScore = false;
+        $scope.games[index].changed = true;
+        //$scope.showAddScore = false;
     }
 });

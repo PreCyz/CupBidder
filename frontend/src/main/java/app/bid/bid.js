@@ -21,9 +21,12 @@ var isValid = function(score) {
     return score != '' && isFinite(score);
 }
 
-mainAppModule.controller('BidController', function($rootScope, $scope, $http) {
+mainAppModule.controller('BidController', function($rootScope, $scope, $http, $location) {
     $rootScope.hideSignIn = true;
     $scope.showAddScore = true;
+    $scope.halloMsg = $rootScope.halloMsg();
+    $scope.isBidPath = $location.path() == '/bid';
+    $scope.isAdmin = $rootScope.isAdmin();
 
     $http(GAMES_GET)
     .then(function success(response) {
@@ -61,6 +64,11 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http) {
             $scope.games[index].homeTeamScore = homeScore.trim();
             $scope.games[index].awayTeamScore = awayScore.trim();
             //do post to backend here depend on user role
+            if ($rootScope.user.type == 'Admin') {
+                console.log("call admin score update");
+            } else {
+                console.log("call bidder score update");
+            }
         }
     }
 

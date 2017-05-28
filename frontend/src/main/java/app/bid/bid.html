@@ -1,14 +1,7 @@
 <div ng-controller="BidController" class="container">
-    <div class="from-group">
-        <p>
-            <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/overview">Overview</a>
-        </p>
-        <hr/>
-        <p>
-            <span>Hello {{user.nickname}}</span>
-        </p>
-    </div>
+    <div ng-include="'includes/topTemplate.html'"></div>
 
-    <h3>Add bids [BIDDER]</h3>
+    <h3 ng-if="isAdmin">Add scores [Admin]</h3>
+    <h3 ng-if="!isAdmin">Add bids [Bidder]</h3>
     <div ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
 </div>

@@ -1,21 +1,12 @@
 <div ng-clock ng-controller="OverviewController" class="container">
-    <div class="from-group">
-        <p>
-            <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/bid">Add bids</a>
-        </p>
-        <p>
-            <span>Hello {{loggedUser}}</span>
-        </p>
-        <hr/>
-    </div>
+    <div ng-include="'includes/topTemplate.html'"></div>
 
     <h3>Overview</h3>
-
     <div class="table-responsive marginLeft15">
         <table class="table-bordered thPadding5 tdPadding5">
             <tr>
                 <th>No</th>
-                <th>Actions</th>
+                <th ng-if="isAdmin">Actions</th>
                 <th>Name</th>
                 <th>Start date</th>
                 <th>End date</th>
@@ -23,10 +14,12 @@
             </tr>
             <tr ng-repeat="cup in cups">
                 <td>{{ $index + 1 }}</td>
-                <td ng-if="!edit"> <input type="button" class="btn btn-primary btn-xs" value="Edit" ng-click="editCup($index)"> </td>
-                <td ng-if="edit">
-                    <button type="button" class="btn btn-success btn-xs" ng-click="saveCup($index)">Save</button>
-                    <button type="button" class="btn btn-info btn-xs" ng-click="cancelEditing()">Cancel</button>
+                <td ng-if="isAdmin">
+                    <input ng-if="!edit" type="button" class="btn btn-primary btn-xs" value="Edit" ng-click="editCup($index)">
+                    <span ng-if="edit">
+                        <button type="button" class="btn btn-success btn-xs" ng-click="saveCup($index)">Save</button>
+                        <button type="button" class="btn btn-info btn-xs" ng-click="cancelEditing()">Cancel</button>
+                    </span>
                 </td>
 
                 <td ng-if="!edit">{{ cup.name }}</td>

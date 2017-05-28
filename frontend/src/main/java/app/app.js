@@ -28,13 +28,19 @@ mainAppModule.controller('MainAppController', function($rootScope, $location) {
         $rootScope.user = null;
     }
 
-    $rootScope.loggedUser = function() {
+    $rootScope.halloMsg = function() {
+        var userName = "No-Name user";
         if ($rootScope.user != null) {
             if (typeof $rootScope.user.nickname == 'undefined' || $rootScope.user.nickname == null) {
-                return $rootScope.user.firstName + ' ' + $rootScope.user.lastName;
+                userName = $rootScope.user.firstName + ' ' + $rootScope.user.lastName;
+            } else {
+                userName = $rootScope.user.nickname;
             }
-            return $rootScope.user.nickname;
         }
-        return "No-Name user";
+        return 'Hallo ' + userName;
+    }
+
+    $rootScope.isAdmin = function() {
+        return $rootScope.user.type == 'Admin';
     }
 });

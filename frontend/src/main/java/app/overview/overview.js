@@ -14,10 +14,12 @@ function SAVE_CUP_POST(updateCupData) {
     };
 }
 
-mainAppModule.controller('OverviewController', function($rootScope, $scope, $http) {
+mainAppModule.controller('OverviewController', function($rootScope, $scope, $http, $location) {
     $rootScope.hideSignIn = true;
     $scope.showAddScore = false;
-    $scope.loggedUser = $rootScope.loggedUser();
+    $scope.halloMsg = $rootScope.halloMsg();
+    $scope.isOverviewPath = $location.path() == '/overview';
+    $scope.isAdmin = $rootScope.isAdmin();
 
     $http(CUPS_GET)
     .then(function success(response) {

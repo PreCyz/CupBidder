@@ -20,8 +20,21 @@ mainAppModule.config(function($routeProvider) {
 mainAppModule.controller('MainAppController', function($rootScope, $location) {
     $rootScope.myUrl = $location.absUrl();
     $rootScope.hideSignIn = false;
+    $rootScope.user = null;
+
     $rootScope.showSignIn = function() {
         console.log('showSignIn() call.')
         $rootScope.hideSignIn = false;
+        $rootScope.user = null;
+    }
+
+    $rootScope.loggedUser = function() {
+        if ($rootScope.user != null) {
+            if (typeof $rootScope.user.nickname == 'undefined' || $rootScope.user.nickname == null) {
+                return $rootScope.user.firstName + ' ' + $rootScope.user.lastName;
+            }
+            return $rootScope.user.nickname;
+        }
+        return "No-Name user";
     }
 });

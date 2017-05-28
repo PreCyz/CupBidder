@@ -17,6 +17,7 @@ function SAVE_CUP_POST(updateCupData) {
 mainAppModule.controller('OverviewController', function($rootScope, $scope, $http) {
     $rootScope.hideSignIn = true;
     $scope.showAddScore = false;
+    $scope.loggedUser = $rootScope.loggedUser();
 
     $http(CUPS_GET)
     .then(function success(response) {
@@ -35,6 +36,9 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
         console.log('showGames('+index+') call.');
         $scope.showGame = true;
         $scope.games = $scope.cups[index].games;
+        for(var i = 0; i < $scope.games.length; i++) {
+            $scope.games[i].bidSet = true;
+        }
     }
 
     $scope.hideGames = function() {

@@ -4,8 +4,11 @@
             <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/overview">Overview</a>
         </p>
         <hr/>
+        <p>
+            <span>Hello {{user.nickname}}</span>
+        </p>
     </div>
 
-    <h3>All games</h3>
+    <h3>Add bids [BIDDER]</h3>
     <div ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
 </div>

@@ -1,7 +1,14 @@
-mainAppModule.controller('LoginController', function($rootScope, $scope) {
+var LOGIN_USER_POST = function(email, password) {
+    return { method : "POST",
+             url : "http://localhost:8080/api/user/login",
+             data : { email : email, password : password}
+     }
+}
+
+mainAppModule.controller('LoginController', function($rootScope, $scope, $http, $location) {
     $rootScope.hideSignIn = true;
 
-    $scope.email = 'sample@email.com';
+    $scope.email = 'admin@cup.com';
     $scope.password = 'qqq';
 
     $scope.goToStartup = function() {
@@ -10,6 +17,24 @@ mainAppModule.controller('LoginController', function($rootScope, $scope) {
     }
 
     $scope.login = function() {
+        $scope.error = false;
         console.log("login() call.")
+        $http(LOGIN_USER_POST($scope.email, $scope.password))
+        .then(function success(response) {
+            $rootScope.user = response.data;
+            if (typeof $rootScope.user == 'undefined' || $rootScope.user == null || $rootScope.user == '') {
+                $scope.error = true;
+                $scope.requestErrorMsg = 'There is no user with email \'' + $scope.email + '\'.';
+            } else {
+                if ($rootScope.user.type == 'Admin') {
+                    $location.path('/overview');
+                } else {
+                    $location.path('/bid');
+                }
+            }
+        }, function handleError(response) {
+            $scope.error = true;
+            $scope.requestErrorMsg = response.statusText;
+        });
     }
 });

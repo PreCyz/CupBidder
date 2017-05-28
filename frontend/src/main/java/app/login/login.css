@@ -9,3 +9,8 @@
 .floatRight div {
     float: right;
 }
+
+.errorLoginMsg {
+    color: darkred;
+    padding-top: 10px;
+}

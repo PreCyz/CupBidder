@@ -14,7 +14,10 @@
     <div class="container">
         <div class="form-group marginLeft15">
             <h1> </h1>
-            <a href="#!/overview" ng-click="login()">Login</a> | <a href="#!/" ng-click="goToStartup()">Welcome screen</a>
+            <button type="button" ng-click="login()" class="btn btn-info btn-xs">Login</button>
+            <span ng-if="error" class="errorLoginMsg" ng-bind="requestErrorMsg"/>
+            <hr/>
+            <p><a href="#!/" ng-click="goToStartup()">Welcome screen</a></p>
         </div>
     </div>
 

@@ -3,6 +3,16 @@ var GAMES_GET = {
        url : "http://localhost:8080/api/game/all"
 }
 
+var ADD_SCORE_ADMIN_POST = {
+    method : "POST",
+       url : "http://localhost:8080/api/game/all"
+}
+
+var ADD_SCORE_BIDDER_POST = {
+    method : "POST",
+       url : "http://localhost:8080/api/game/all"
+}
+
 var isValid = function(score) {
     if (typeof score == 'undefined') {
         return false;
@@ -50,7 +60,7 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http) {
         if ($scope.games[index].bidSet) {
             $scope.games[index].homeTeamScore = homeScore.trim();
             $scope.games[index].awayTeamScore = awayScore.trim();
-            //do post to backend here
+            //do post to backend here depend on user role
         }
     }
 

@@ -1,7 +1,10 @@
-<div ng-controller="OverviewController" class="container">
+<div ng-clock ng-controller="OverviewController" class="container">
     <div class="from-group">
         <p>
-            <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/bid">All games</a>
+            <a ng-href="#!/" ng-click="logout()">Logout</a> | <a ng-href="#!/bid">Add bids</a>
+        </p>
+        <p>
+            <span>Hello {{loggedUser}}</span>
         </p>
         <hr/>
     </div>

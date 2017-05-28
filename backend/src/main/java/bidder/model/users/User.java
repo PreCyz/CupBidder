@@ -1,10 +1,12 @@
 package bidder.model.users;
 
 import bidder.model.common.CommonAttributes;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /** Created by gawa on 01.05.17. */
 @Document(collection = "users")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class User extends CommonAttributes {
 
 	private String firstName;

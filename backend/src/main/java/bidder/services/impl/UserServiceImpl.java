@@ -90,4 +90,10 @@ public class UserServiceImpl implements UserService {
 		return users.stream().map(user -> (User) user).collect(Collectors.toList());
 	}
 
+	@Override
+	public User login(String email, String password) {
+		User user = userRepository.findByEmail(email);
+		return user;
+	}
+
 }

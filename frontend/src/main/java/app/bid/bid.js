@@ -31,7 +31,7 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
     $http(GAMES_GET)
     .then(function success(response) {
         $scope.games = response.data.games;
-        for(var i = 0; i < $scope.games.length; i++) {
+        for (let i = 0; i < $scope.games.length; i++) {
             $scope.games[i].bidSet = false;
             if($scope.games[i].homeTeamScore >= 0 && $scope.games[i].awayTeamScore >= 0) {
                 $scope.games[i].bidSet = true;
@@ -46,8 +46,8 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
         $scope.games[index].bidSet = true;
         $scope.games[index].wrongBidMsg = '';
 
-        var homeScore = '';
-        var awayScore = '';
+        let homeScore = '';
+        let awayScore = '';
         homeScore = $scope.games[index].homeTeamScore;
         awayScore = $scope.games[index].awayTeamScore;
 

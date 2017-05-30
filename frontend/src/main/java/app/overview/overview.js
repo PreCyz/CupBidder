@@ -38,7 +38,7 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
         console.log('showGames('+index+') call.');
         $scope.showGame = true;
         $scope.games = $scope.cups[index].games;
-        for(var i = 0; i < $scope.games.length; i++) {
+        for (let i = 0; i < $scope.games.length; i++) {
             $scope.games[i].bidSet = true;
         }
     }
@@ -53,7 +53,7 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
     $scope.editCup = function(index) {
         $scope.edit = true;
         $scope.cupNames = [];
-        for (var i = 0; i < $scope.cups.length; i++) {
+        for (let i = 0; i < $scope.cups.length; i++) {
             $scope.cupNames.push($scope.cups[i].name);
         }
     }
@@ -66,8 +66,8 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
     $scope.saveCup = function(index) {
         $scope.edit = false;
         $scope.cups[index].name = $scope.cupNames[index];
-        var cupId = $scope.cups[index].id;
-        var updateCupData = { id : cupId, name : $scope.cups[index].name }
+        let cupId = $scope.cups[index].id;
+        let updateCupData = { id : cupId, name : $scope.cups[index].name }
         $http( SAVE_CUP_POST(updateCupData) )
         .then(
             function success(updateCupData, status) {

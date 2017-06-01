@@ -3,14 +3,12 @@ var GAMES_GET = {
        url : "http://localhost:8080/api/game/all"
 }
 
-var ADD_SCORE_ADMIN_POST = {
-    method : "POST",
-       url : "http://localhost:8080/api/game/all"
-}
-
-var ADD_SCORE_BIDDER_POST = {
-    method : "POST",
-       url : "http://localhost:8080/api/game/all"
+var ADD_SCORE_POST = function(scoreData) {
+    return {
+        method : "POST",
+           url : "http://localhost:8080/api/game/addScore",
+          data : scoreData
+    }
 }
 
 var isValid = function(score) {
@@ -63,12 +61,24 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
         if ($scope.games[index].bidSet) {
             $scope.games[index].homeTeamScore = homeScore.trim();
             $scope.games[index].awayTeamScore = awayScore.trim();
-            //do post to backend here depend on user role
-            if ($rootScope.user.type == 'Admin') {
-                console.log("call admin score update");
-            } else {
-                console.log("call bidder score update");
-            }
+
+            let scoreData = {
+                userId : $rootScope.userId(),
+                gameId : $scope.games[index].id,
+                homeTeamScore : $scope.games[index].homeTeamScore,
+                awayTeamScore : $scope.games[index].awayTeamScore
+            };
+
+            console.log("call score update");
+            $http( ADD_SCORE_POST(scoreData) )
+            .then(
+                function success(scoreData, status) {
+                    $scope.saveCompleted = true;
+                },
+                function handleError(scope, response) {
+                    $scope.requestErrorMsg = response.statusText;
+                }
+            );
         }
     }
 

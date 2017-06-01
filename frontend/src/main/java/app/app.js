@@ -43,4 +43,8 @@ mainAppModule.controller('MainAppController', function($rootScope, $location) {
     $rootScope.isAdmin = function() {
         return $rootScope.user.type == 'Admin';
     }
+
+    $rootScope.userId = function() {
+            return $rootScope.user.id;
+        }
 });

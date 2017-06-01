@@ -74,7 +74,7 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
                 $scope.saveCompleted = true;
             },
             function handleError(scope, response) {
-                scope.requestErrorMsg = response.statusText;
+                $scope.requestErrorMsg = response.statusText;
             }
         );
     }

@@ -1,14 +1,58 @@
-var GAMES_GET = {
+var GAMES_ALL_GET = {
     method : "GET",
        url : "http://localhost:8080/api/game/all"
+}
+
+var GAMES_FOR_USER_GET = function(userId) {
+    method : "GET",
+       url : "http://localhost:8080/api/game/all/"+userId
+}
+
+var SCORES_ALL_GET = {
+    method : "GET",
+       url : "http://localhost:8080/api/game/all"
+}
+
+var SCORES_FOR_USER_GET = function(userId) {
+    method : "GET",
+       url : "http://localhost:8080/api/score/all/"+userId
 }
 
 var ADD_SCORE_POST = function(scoreData) {
     return {
         method : "POST",
-           url : "http://localhost:8080/api/game/addScore",
+           url : "http://localhost:8080/api/score/addScore",
           data : scoreData
     }
+}
+
+var CHANGE_SCORE_POST = function(scoreData) {
+    return {
+        method : "POST",
+           url : "http://localhost:8080/api/score/changeScore",
+          data : scoreData
+    }
+}
+
+var isValidScore = function(score) {
+    score.bidSet = true;
+    score.wrongBidMsg = '';
+
+    let homeScore = score.homeTeamScore;
+    let awayScore = score.awayTeamScore;
+
+    if (!isValid(homeScore)) {
+        score.wrongBidMsg = "Home team score should contain only numbers.";
+        score.bidSet = false;
+        return false;
+    }
+
+    if (!isValid(awayScore)) {
+        score.wrongBidMsg = "Away team score should contain only numbers.";
+        score.bidSet = false;
+        return false;
+    }
+    return true;
 }
 
 var isValid = function(score) {
@@ -26,7 +70,7 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
     $scope.isBidPath = $location.path() == '/bid';
     $scope.isAdmin = $rootScope.isAdmin();
 
-    $http(GAMES_GET)
+    $http(GAMES_ALL_GET)
     .then(function success(response) {
         $scope.games = response.data.games;
         for (let i = 0; i < $scope.games.length; i++) {
@@ -41,39 +85,21 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
 
     $scope.addScore = function(index) {
         console.log('addScore('+index+') call.');
-        $scope.games[index].bidSet = true;
-        $scope.games[index].wrongBidMsg = '';
-
-        let homeScore = '';
-        let awayScore = '';
-        homeScore = $scope.games[index].homeTeamScore;
-        awayScore = $scope.games[index].awayTeamScore;
-
-        if (!isValid(homeScore)) {
-            $scope.games[index].wrongBidMsg = "Home team score should contain only numbers.";
-            $scope.games[index].bidSet = false;
-        }
-
-        if (!isValid(awayScore)) {
-            $scope.games[index].wrongBidMsg = "Away team score should contain only numbers.";
-            $scope.games[index].bidSet = false;
-        }
-        if ($scope.games[index].bidSet) {
-            $scope.games[index].homeTeamScore = homeScore.trim();
-            $scope.games[index].awayTeamScore = awayScore.trim();
+        if (isValidScore($scope.games[index])) {
 
             let scoreData = {
                 userId : $rootScope.userId(),
                 gameId : $scope.games[index].id,
-                homeTeamScore : $scope.games[index].homeTeamScore,
-                awayTeamScore : $scope.games[index].awayTeamScore
+                homeTeamScore : $scope.games[index].homeTeamScore.trim(),
+                awayTeamScore : $scope.games[index].awayTeamScore.trim()
             };
 
             console.log("call score update");
             $http( ADD_SCORE_POST(scoreData) )
             .then(
-                function success(scoreData, status) {
+                function success(scoreData, status, response) {
                     $scope.saveCompleted = true;
+                    $scope.games[index].scoreId = response.data;
                 },
                 function handleError(scope, response) {
                     $scope.requestErrorMsg = response.statusText;
@@ -84,7 +110,26 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
 
     $scope.changeScore = function(index) {
         console.log('changeBid('+index+') call.');
-        $scope.games[index].bidSet = false;
+        if (isValidScore($scope.games[index])) {
+
+            let scoreData = {
+                userId : $rootScope.userId(),
+                scoreId : $scope.games[index].scoreId,
+                homeTeamScore : $scope.games[index].homeTeamScore.trim(),
+                awayTeamScore : $scope.games[index].awayTeamScore.trim()
+            };
+
+            console.log("call score update");
+            $http( CHANGE_SCORE_POST(scoreData) )
+            .then(
+                function success(scoreData, status) {
+                    $scope.saveCompleted = true;
+                },
+                function handleError(scope, response) {
+                    $scope.requestErrorMsg = response.statusText;
+                }
+            );
+        }
     }
 
     $scope.logout = function() {

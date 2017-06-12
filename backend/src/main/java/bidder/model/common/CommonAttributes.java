@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 public class CommonAttributes {
 
 	@Id
-	private String id;
+	protected String id;
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime creationDate;
+	protected LocalDateTime creationDate;
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime lastModificationDate;
+	protected LocalDateTime lastModificationDate;
 
 	public CommonAttributes() {
 		creationDate = LocalDateTime.now();

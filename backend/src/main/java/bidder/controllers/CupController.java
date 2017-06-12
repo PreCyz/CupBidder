@@ -14,8 +14,12 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 public class CupController {
 
+    private final CupService cupService;
+
     @Autowired
-    private CupService cupService;
+    public CupController(CupService cupService) {
+        this.cupService = cupService;
+    }
 
     @GetMapping(path = "")
     public CupResponse getCups() {

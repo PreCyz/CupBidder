@@ -17,8 +17,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+	private final UserService userService;
+
 	@Autowired
-	private UserService userService;
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@PostMapping(path = "/login")
 	public User login(@Valid @RequestBody LoginRequest loginRequest) {

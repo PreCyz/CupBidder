@@ -11,41 +11,31 @@ public class ScoreRequest {
     @NotNull
     private String userId;
     @NotNull
-    private String gameId;
-    @NotNull
     private int homeTeamScore;
     @NotNull
     private int awayTeamScore;
 
+    private String gameId;
+    private String scoreId;
+
     public String getUserId() {
         return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getGameId() {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
-
     public int getHomeTeamScore() {
         return homeTeamScore;
-    }
-
-    public void setHomeTeamScore(int homeTeamScore) {
-        this.homeTeamScore = homeTeamScore;
     }
 
     public int getAwayTeamScore() {
         return awayTeamScore;
     }
 
-    public void setAwayTeamScore(int awayTeamScore) {
-        this.awayTeamScore = awayTeamScore;
+    public String getScoreId() {
+        return scoreId;
     }
+
 }

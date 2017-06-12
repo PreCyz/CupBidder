@@ -14,8 +14,12 @@ import java.util.List;
 @Service
 public class CupServiceImpl implements CupService {
 
-	@Autowired
 	private CupRepository cupRepository;
+
+	@Autowired
+	public CupServiceImpl(CupRepository cupRepository) {
+		this.cupRepository = cupRepository;
+	}
 
 	@Override
 	public void dropCups() {

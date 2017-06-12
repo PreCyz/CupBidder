@@ -1,12 +1,10 @@
 package bidder.controllers;
 
-import bidder.model.web.request.ScoreRequest;
 import bidder.model.web.response.GameResponse;
 import bidder.services.GameService;
+import bidder.services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /** Created by Gawa on 26/05/17.*/
 @RestController
@@ -14,8 +12,14 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 public class GameController {
 
+    private final GameService gameService;
+    private final ScoreService scoreService;
+
     @Autowired
-    private GameService gameService;
+    public GameController(GameService gameService, ScoreService scoreService) {
+        this.gameService = gameService;
+        this.scoreService = scoreService;
+    }
 
     @GetMapping(path = "/all")
     public GameResponse allGames() {
@@ -24,9 +28,10 @@ public class GameController {
         return response;
     }
 
-    @PostMapping(path = "/addScore")
-    public void addScore(@Valid @RequestBody ScoreRequest scoreRequest) {
-        scoreRequest.getGameId();
-        scoreRequest.getHomeTeamScore();
+    @GetMapping(path = "/all/{userId}")
+    public GameResponse getGamesToBid(@PathVariable(name = "userId") String userId) {
+        GameResponse response = new GameResponse();
+        response.setGames(gameService.getAllGames());
+        return response;
     }
 }

@@ -40,11 +40,24 @@ mainAppModule.controller('MainAppController', function($rootScope, $location) {
         return 'Hallo ' + userName;
     }
 
+    $rootScope.userId = function() {
+        return $rootScope.user.id;
+    }
+
     $rootScope.isAdmin = function() {
         return $rootScope.user.type == 'Admin';
     }
 
-    $rootScope.userId = function() {
-            return $rootScope.user.id;
-        }
+    $rootScope.isWatcher = function() {
+        return $rootScope.user.type == 'Watcher';
+    }
+
+    $rootScope.isBidder = function() {
+        return $rootScope.user.type == 'Bidder';
+    }
+
+    $rootScope.isGambler = function() {
+        return $rootScope.user.type == 'Gambler';
+    }
+
 });

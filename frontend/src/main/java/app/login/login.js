@@ -1,8 +1,9 @@
-var LOGIN_USER_POST = function(email, password) {
-    return { method : "POST",
-             url : "http://localhost:8080/api/user/login",
-             data : { email : email, password : password}
-     }
+const LOGIN_USER_POST = function(email, password) {
+    return {
+        method : "POST",
+           url : BACKEND_HOST + "/api/user/login",
+          data : { email : email, password : password}
+    }
 }
 
 mainAppModule.controller('LoginController', function($rootScope, $scope, $http, $location) {
@@ -26,7 +27,7 @@ mainAppModule.controller('LoginController', function($rootScope, $scope, $http, 
                 $scope.error = true;
                 $scope.requestErrorMsg = 'There is no user with email \'' + $scope.email + '\'.';
             } else {
-                if ($rootScope.user.type == 'Admin') {
+                if ($rootScope.isAdmin()) {
                     $location.path('/overview');
                 } else {
                     $location.path('/bid');

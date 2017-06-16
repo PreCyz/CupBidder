@@ -22,16 +22,14 @@ public class GameController {
     }
 
     @GetMapping(path = "/all")
-    public GameResponse allGames() {
-        GameResponse response = new GameResponse();
-        response.setGames(gameService.getAllGames());
+    public GameResponse getAllGames() {
+        GameResponse response = new GameResponse(gameService.getAllGames());
         return response;
     }
 
     @GetMapping(path = "/all/{userId}")
     public GameResponse getGamesToBid(@PathVariable(name = "userId") String userId) {
-        GameResponse response = new GameResponse();
-        response.setGames(gameService.getAllGames());
+        GameResponse response = new GameResponse(gameService.getGamesToBid(userId));
         return response;
     }
 }

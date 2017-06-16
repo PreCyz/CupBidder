@@ -1,20 +1,21 @@
 package bidder.model.web.response;
 
 import bidder.model.match.Game;
-import bidder.model.match.Score;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /** Created by Gawa on 25/05/17.*/
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GameResponse {
 
-    @Size(min = 1)
     private List<Game> games;
 
-    public void setGames(List<Game> games) {
+    public GameResponse(List<Game> games) {
         this.games = games;
+    }
+
+    public List<Game> getGames() {
+        return games;
     }
 }

@@ -1,40 +1,44 @@
-var GAMES_ALL_GET = {
+const GAMES_ALL_GET = {
     method : "GET",
-       url : "http://localhost:8080/api/game/all"
+       url : BACKEND_HOST + "/api/game/all"
 }
 
-var GAMES_FOR_USER_GET = function(userId) {
-    method : "GET",
-       url : "http://localhost:8080/api/game/all/"+userId
+const GAMES_FOR_USER_GET = function(userId) {
+    return {
+        method : "GET",
+           url : BACKEND_HOST + "/api/game/all/"+userId
+    }
 }
 
-var SCORES_ALL_GET = {
+const SCORES_ALL_GET = {
     method : "GET",
-       url : "http://localhost:8080/api/game/all"
+       url : BACKEND_HOST + "/api/score/all"
 }
 
-var SCORES_FOR_USER_GET = function(userId) {
-    method : "GET",
-       url : "http://localhost:8080/api/score/all/"+userId
+const SCORES_FOR_USER_GET = function(userId) {
+    return {
+        method : "GET",
+           url : BACKEND_HOST + "/api/score/all/"+userId
+    }
 }
 
-var ADD_SCORE_POST = function(scoreData) {
+const ADD_SCORE_POST = function(scoreData) {
     return {
         method : "POST",
-           url : "http://localhost:8080/api/score/addScore",
+           url : BACKEND_HOST + "/api/score/addScore",
           data : scoreData
     }
 }
 
-var CHANGE_SCORE_POST = function(scoreData) {
+const CHANGE_SCORE_POST = function(scoreData) {
     return {
         method : "POST",
-           url : "http://localhost:8080/api/score/changeScore",
+           url : BACKEND_HOST + "/api/score/changeScore",
           data : scoreData
     }
 }
 
-var isValidScore = function(score) {
+let isValidScore = function(score) {
     score.bidSet = true;
     score.wrongBidMsg = '';
 
@@ -55,12 +59,22 @@ var isValidScore = function(score) {
     return true;
 }
 
-var isValid = function(score) {
+let isValid = function(score) {
     if (typeof score == 'undefined') {
         return false;
     }
     score = score.trim();
     return score != '' && isFinite(score);
+}
+
+let populateBids = function (games) {
+    for (let i = 0; i < games.length; i++) {
+        games[i].bidSet = false;
+        if(games[i].homeTeamScore >= 0 && games[i].awayTeamScore >= 0) {
+            games[i].bidSet = true;
+        }
+    }
+    return games;
 }
 
 mainAppModule.controller('BidController', function($rootScope, $scope, $http, $location) {
@@ -72,13 +86,8 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
 
     $http(GAMES_ALL_GET)
     .then(function success(response) {
-        $scope.games = response.data.games;
-        for (let i = 0; i < $scope.games.length; i++) {
-            $scope.games[i].bidSet = false;
-            if($scope.games[i].homeTeamScore >= 0 && $scope.games[i].awayTeamScore >= 0) {
-                $scope.games[i].bidSet = true;
-            }
-        }
+        $scope.games = populateBids(response.data.games);
+        $scope.statusText = response.statusText;
     }, function handleError(response) {
         $scope.requestErrorMsg = response.statusText;
     });
@@ -109,7 +118,7 @@ mainAppModule.controller('BidController', function($rootScope, $scope, $http, $l
     }
 
     $scope.changeScore = function(index) {
-        console.log('changeBid('+index+') call.');
+        console.log('changeScore('+index+') call.');
         if (isValidScore($scope.games[index])) {
 
             let scoreData = {

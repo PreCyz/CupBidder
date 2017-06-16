@@ -1,6 +1,7 @@
 package bidder.model.match;
 
 import bidder.model.common.CommonAttributes;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.*;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 /** Created by Gawa on 06.05.17. */
 @Document(collection = "games")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Game extends CommonAttributes {
 
 	private String homeTeamName;

@@ -1,16 +1,16 @@
-var CUPS_GET = {
+const CUPS_GET = {
    method : "GET",
-   url : "http://localhost:8080/api/cup"
+      url : BACKEND_HOST + "/api/cup"
 }
 
-function SAVE_CUP_POST(updateCupData) {
+const SAVE_CUP_POST = function(updateCupData) {
     return {
-       method: 'POST',
-       url: 'http://localhost:8080/api/cup/'+updateCupData.id+'/save',
+       method : 'POST',
+          url : BACKEND_HOST + '/api/cup/'+updateCupData.id+'/save',
        /*headers: {
            `'Content-Type': undefined
        },*/
-       data: updateCupData
+         data : updateCupData
     };
 }
 

@@ -2,6 +2,13 @@
     <div ng-include="'includes/topMenu.html'"></div>
 
     <h3 ng-if="isAdmin">Add scores [Admin]</h3>
-    <h3 ng-if="!isAdmin">Add bids [Bidder]</h3>
+    <div ng-if="!isAdmin">
+        <h3 ng-if="!isAdmin">
+            <span>Add bids </span>
+            <span ng-if="isGambler">[Gambler]</span>
+            <span ng-if="isBidder">[Bidder]</span>
+            <span ng-if="isWatcher">[Watcher]</span>
+        </h3>
+    </div>
     <div ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
 </div>

@@ -77,17 +77,19 @@ let populateBids = function (games) {
     return games;
 }
 
-mainAppModule.controller('BidController', function($rootScope, $scope, $http, $location) {
+mainAppModule.controller('BidController', function($rootScope, $http, $scope, $location) {
     $rootScope.hideSignIn = true;
     $scope.showAddScore = true;
     $scope.halloMsg = $rootScope.halloMsg();
     $scope.isBidPath = $location.path() == '/bid';
     $scope.isAdmin = $rootScope.isAdmin();
+    $scope.isBidder = $rootScope.isBidder();
+    $scope.isGambler = $rootScope.isGambler();
+    $scope.isWatcher = $rootScope.isWatcher();
 
-    $http(GAMES_ALL_GET)
+    $http(GAMES_FOR_USER_GET($rootScope.userId()))
     .then(function success(response) {
         $scope.games = populateBids(response.data.games);
-        $scope.statusText = response.statusText;
     }, function handleError(response) {
         $scope.requestErrorMsg = response.statusText;
     });

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Game extends CommonAttributes {
 
+	private String cupId;
 	private String homeTeamName;
 	private String awayTeamName;
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -22,10 +23,19 @@ public class Game extends CommonAttributes {
 
 	public Game() {}
 
-	public Game(String homeTeamName, String awayTeamName, LocalDateTime startDateTime) {
+	public Game(String cupId, String homeTeamName, String awayTeamName, LocalDateTime startDateTime) {
+		this.cupId = cupId;
 		this.homeTeamName = homeTeamName;
 		this.awayTeamName = awayTeamName;
 		this.startDateTime = startDateTime;
+	}
+
+	public String getCupId() {
+		return cupId;
+	}
+
+	public void setCupId(String cupId) {
+		this.cupId = cupId;
 	}
 
 	public String getHomeTeamName() {

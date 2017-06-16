@@ -4,23 +4,37 @@ import bidder.model.common.CommonAttributes;
 import bidder.model.match.Score;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
+
 /** Created by gawa on 01.05.17.*/
 @Document(collection = "bids")
 public class Bid extends CommonAttributes {
 
-	private String bidderId;
+	@NotNull
+	private String cupId;
+	@NotNull
+	private String userId;
+	@NotNull
 	private Score score;
 
 	public Bid() {
 		super();
 	}
 
-	public String getBidderId() {
-		return bidderId;
+	public String getCupId() {
+		return cupId;
 	}
 
-	public void setBidderId(String bidderId) {
-		this.bidderId = bidderId;
+	public void setCupId(String cupId) {
+		this.cupId = cupId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public Score getScore() {

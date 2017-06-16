@@ -28,8 +28,9 @@ public class GameController {
     }
 
     @GetMapping(path = "/all/{userId}")
-    public GameResponse getGamesToBid(@PathVariable(name = "userId") String userId) {
-        GameResponse response = new GameResponse(gameService.getGamesToBid(userId));
+    public GameResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
+                                      @PathVariable(name = "userId") String userId) {
+        GameResponse response = new GameResponse(gameService.getGamesToBid(cupId, userId));
         return response;
     }
 }

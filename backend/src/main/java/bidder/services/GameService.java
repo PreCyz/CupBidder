@@ -12,5 +12,5 @@ public interface GameService {
 	Game addGame(Game game);
 	List<Game> addAllGames(List<Game> games);
 	List<Game> getAllGames();
-	List<Game> getGamesToBid(String userId);
+	List<Game> getGamesToBid(String cupId, String userId);
 }

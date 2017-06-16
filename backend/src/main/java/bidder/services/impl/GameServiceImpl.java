@@ -53,7 +53,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Game> getGamesToBid(String userId) {
+    public List<Game> getGamesToBid(String cupId, String userId) {
         return null;
     }
 }

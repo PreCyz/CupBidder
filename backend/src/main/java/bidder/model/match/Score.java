@@ -17,8 +17,7 @@ public class Score extends CommonAttributes {
 	private List<String> homeTeamScorers;
 	private List<String> awayTeamScorers;
 
-	public Score() {
-	}
+	public Score() {}
 
 	public Score(String userId, Game game, int homeTeamScore, int awayTeamScore) {
 		this.userId = userId;

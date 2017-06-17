@@ -1,5 +1,6 @@
 package bidder.model.match;
 
+import bidder.generators.IdGenerator;
 import bidder.model.common.CommonAttributes;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.*;
@@ -25,6 +26,7 @@ public class Game extends CommonAttributes {
 	public Game() {}
 
 	public Game(String cupId, String homeTeamName, String awayTeamName, LocalDateTime startDateTime) {
+		this.id = IdGenerator.generateId();
 		this.cupId = cupId;
 		this.homeTeamName = homeTeamName;
 		this.awayTeamName = awayTeamName;

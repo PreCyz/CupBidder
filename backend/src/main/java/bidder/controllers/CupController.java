@@ -2,6 +2,7 @@ package bidder.controllers;
 
 import bidder.model.web.request.UpdateCupRequest;
 import bidder.model.web.response.CupResponse;
+import bidder.model.web.response.GameResponse;
 import bidder.services.CupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +31,12 @@ public class CupController {
     @PostMapping(path = "/{cupId}/save")
     public void save(@PathVariable String cupId, @Valid @RequestBody UpdateCupRequest updateCupRequest) {
         cupService.updateCup(cupId, updateCupRequest.getName());
+    }
+
+    @GetMapping(path = "/gamesToBid/{cupId}/{userId}")
+    public GameResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
+                                      @PathVariable(name = "userId") String userId) {
+        GameResponse response = new GameResponse(cupService.getGamesToBid(cupId, userId));
+        return response;
     }
 }

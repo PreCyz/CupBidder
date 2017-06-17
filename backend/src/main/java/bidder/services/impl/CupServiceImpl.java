@@ -1,7 +1,7 @@
 package bidder.services.impl;
 
 import bidder.model.Cup;
-import bidder.model.web.response.CupResponse;
+import bidder.model.match.Game;
 import bidder.repositories.CupRepository;
 import bidder.services.CupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +43,9 @@ public class CupServiceImpl implements CupService {
         cup.setLastModificationDate(LocalDateTime.now());
         cupRepository.save(cup);
     }
+
+	@Override
+	public List<Game> getGamesToBid(String cupId, String userId) {
+		return null;
+	}
 }

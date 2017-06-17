@@ -1,4 +1,5 @@
 import bidder.model.Cup;
+import bidder.model.CupStatus;
 import com.fasterxml.jackson.databind.*;
 
 import java.io.*;
@@ -21,6 +22,7 @@ public class ModelMapper {
 			mapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
 			mapper.configure(DeserializationFeature.UNWRAP_SINGLE_VALUE_ARRAYS, true);
 			cup = mapper.readValue(cupJsonFile, Cup.class);
+			cup.setStatus(CupStatus.New);
 			cup.getGames().forEach(game -> game.setId(generateId()));
 		} catch (IOException e) {
 			System.out.println(e.getMessage());

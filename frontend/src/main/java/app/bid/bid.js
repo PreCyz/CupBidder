@@ -1,12 +1,17 @@
+const ACTIVE_CUPS_GET = {
+   method : "GET",
+      url : BACKEND_HOST + "/api/cup/active"
+}
+
 const GAMES_ALL_GET = {
     method : "GET",
        url : BACKEND_HOST + "/api/game/all"
 }
 
-const GAMES_FOR_USER_GET = function(userId) {
+const GAMES_TO_BID_FOR_USER_GET = function(cupId, userId) {
     return {
         method : "GET",
-           url : BACKEND_HOST + "/api/game/all/"+userId
+           url : BACKEND_HOST + "/api/cup/gamesToBid/"cupId+"/"+userId
     }
 }
 
@@ -80,6 +85,7 @@ let populateBids = function (games) {
 mainAppModule.controller('BidController', function($rootScope, $http, $scope, $location) {
     $rootScope.hideSignIn = true;
     $scope.showAddScore = true;
+    $scope.showGamesToBid = false;
     $scope.halloMsg = $rootScope.halloMsg();
     $scope.isBidPath = $location.path() == '/bid';
     $scope.isAdmin = $rootScope.isAdmin();
@@ -87,18 +93,29 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
     $scope.isGambler = $rootScope.isGambler();
     $scope.isWatcher = $rootScope.isWatcher();
 
-    $http(GAMES_FOR_USER_GET($rootScope.userId()))
+    $http(ACTIVE_CUPS_GET)
     .then(function success(response) {
-        $scope.games = populateBids(response.data.games);
+        $scope.cups = response.data.cups;
     }, function handleError(response) {
         $scope.requestErrorMsg = response.statusText;
     });
+
+    $scope.showGames = function(index) {
+        $http(GAMES_TO_BID_FOR_USER_GET($scope.cups[index].id, $rootScope.userId()))
+        .then(function success(response) {
+            $scope.games = populateBids(response.data.games);
+            $scope.showGamesToBid = true;
+        }, function handleError(response) {
+            $scope.requestErrorMsg = response.statusText;
+        });
+    }
 
     $scope.addScore = function(index) {
         console.log('addScore('+index+') call.');
         if (isValidScore($scope.games[index])) {
 
             let scoreData = {
+                cupId : '',
                 userId : $rootScope.userId(),
                 gameId : $scope.games[index].id,
                 homeTeamScore : $scope.games[index].homeTeamScore.trim(),

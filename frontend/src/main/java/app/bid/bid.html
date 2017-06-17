@@ -10,5 +10,10 @@
             <span ng-if="isWatcher">[Watcher]</span>
         </h3>
     </div>
-    <div ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
+
+    <span ng-repeat="cup in cups track by cup.id">
+        <button type="button" class="btn btn-success btn-xs" ng-click="showGames($index)">{{cup.name}}</button>
+    </span>
+
+    <div ng-if="showGamesToBid" ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>
 </div>

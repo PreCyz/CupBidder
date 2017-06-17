@@ -2,7 +2,7 @@ package bidder.controllers;
 
 import bidder.model.web.request.UpdateCupRequest;
 import bidder.model.web.response.CupResponse;
-import bidder.model.web.response.GameResponse;
+import bidder.model.web.response.GamesToBidResponse;
 import bidder.services.CupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,15 @@ public class CupController {
         this.cupService = cupService;
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "/all")
     public CupResponse getCups() {
-        CupResponse response = new CupResponse(cupService.getCups());
+        CupResponse response = new CupResponse(cupService.getAllCups());
+        return response;
+    }
+
+    @GetMapping(path = "/active")
+    public CupResponse activeCups() {
+        CupResponse response = new CupResponse(cupService.getActiveCups());
         return response;
     }
 
@@ -34,9 +40,9 @@ public class CupController {
     }
 
     @GetMapping(path = "/gamesToBid/{cupId}/{userId}")
-    public GameResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
-                                      @PathVariable(name = "userId") String userId) {
-        GameResponse response = new GameResponse(cupService.getGamesToBid(cupId, userId));
+    public GamesToBidResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
+                                            @PathVariable(name = "userId") String userId) {
+        GamesToBidResponse response = new GamesToBidResponse(cupService.getGamesToBid(cupId, userId));
         return response;
     }
 }

@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 public class ScoreRequest {
 
     @NotNull
+    private String cupId;
+    @NotNull
     private String userId;
     @NotNull
     private int homeTeamScore;
@@ -17,6 +19,10 @@ public class ScoreRequest {
 
     private String gameId;
     private String scoreId;
+
+    public String getCupId() {
+        return cupId;
+    }
 
     public String getUserId() {
         return userId;

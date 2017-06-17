@@ -40,8 +40,8 @@ public class ScoreController {
 
     @PostMapping(path = "/addScore")
     public String addScore(@Valid @RequestBody ScoreRequest scoreRequest) {
-        Score score = scoreService.addScore(scoreRequest.getUserId(), scoreRequest.getGameId(), scoreRequest.getHomeTeamScore(),
-                scoreRequest.getAwayTeamScore());
+        Score score = scoreService.addScore(scoreRequest.getCupId(), scoreRequest.getUserId(),
+                scoreRequest.getGameId(), scoreRequest.getHomeTeamScore(), scoreRequest.getAwayTeamScore());
         return score.getId();
     }
 

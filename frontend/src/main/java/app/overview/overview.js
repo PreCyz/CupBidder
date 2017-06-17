@@ -1,6 +1,6 @@
 const CUPS_GET = {
    method : "GET",
-      url : BACKEND_HOST + "/api/cup"
+      url : BACKEND_HOST + "/api/cup/all"
 }
 
 const SAVE_CUP_POST = function(updateCupData) {

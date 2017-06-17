@@ -7,11 +7,11 @@ import java.util.List;
 
 /** Created by Gawa on 25/05/17.*/
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GameResponse {
+public class GamesToBidResponse {
 
     private List<Game> games;
 
-    public GameResponse(List<Game> games) {
+    public GamesToBidResponse(List<Game> games) {
         this.games = games;
     }
 

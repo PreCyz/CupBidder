@@ -24,6 +24,7 @@ public class Cup extends CommonAttributes {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime endDateTime;
 	private List<Game> games;
+	private CupStatus status;
 
 	public Cup() {
 		super();
@@ -61,4 +62,11 @@ public class Cup extends CommonAttributes {
 		this.games = games;
 	}
 
+	public CupStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(CupStatus status) {
+		this.status = status;
+	}
 }

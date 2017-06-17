@@ -7,10 +7,11 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 /** Created by Gawa on 06.05.17. */
-@Document(collection = "games")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Game extends CommonAttributes {
 
@@ -28,6 +29,10 @@ public class Game extends CommonAttributes {
 		this.homeTeamName = homeTeamName;
 		this.awayTeamName = awayTeamName;
 		this.startDateTime = startDateTime;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCupId() {

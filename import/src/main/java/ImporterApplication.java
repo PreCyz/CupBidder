@@ -1,5 +1,3 @@
-import bidder.model.Cup;
-import bidder.model.match.Game;
 import bidder.model.users.*;
 import bidder.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +11,14 @@ import java.util.*;
 @ComponentScan(basePackages = "bidder")
 public class ImporterApplication implements CommandLineRunner {
 
-	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private GameService gameService;
-
-	@Autowired
 	private CupService cupService;
+
+	@Autowired
+	public ImporterApplication(UserService userService, CupService cupService) {
+		this.userService = userService;
+		this.cupService = cupService;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ImporterApplication.class, args);
@@ -37,16 +35,8 @@ public class ImporterApplication implements CommandLineRunner {
 	private void loadCup() {
 		System.out.println("Dropping cup.");
 		cupService.dropCups();
-		System.out.println("Dropping games.");
-		gameService.dropGames();
-
-		ModelMapper modelMapper = new ModelMapper();
-		Cup cup = modelMapper.cup();
-		System.out.println("Loading games.");
-		List<Game> loadedGames = gameService.addAllGames(cup.getGames());
-		cup.setGames(loadedGames);
 		System.out.println("Loading cup.");
-		cupService.addCup(cup);
+		cupService.addCup(new ModelMapper().cup());
 	}
 
 	private void loadUsers() {

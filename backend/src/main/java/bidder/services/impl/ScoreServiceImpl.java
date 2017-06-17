@@ -3,7 +3,6 @@ package bidder.services.impl;
 import bidder.model.match.Game;
 import bidder.model.match.Score;
 import bidder.repositories.ScoreRepository;
-import bidder.services.GameService;
 import bidder.services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +15,15 @@ import java.util.List;
 public class ScoreServiceImpl implements ScoreService {
 
     private final ScoreRepository scoreRepository;
-    private final GameService gameService;
 
     @Autowired
-    public ScoreServiceImpl(ScoreRepository scoreRepository, GameService gameService) {
+    public ScoreServiceImpl(ScoreRepository scoreRepository) {
         this.scoreRepository = scoreRepository;
-        this.gameService = gameService;
     }
 
     @Override
     public Score addScore(String userId, String gameId, int homeTeamScore, int awayTeamScore) {
-        Game game = gameService.getGame(gameId);
+        Game game = null;
         Score score = new Score(userId, game, homeTeamScore, awayTeamScore);
         score = scoreRepository.save(score);
         return score;

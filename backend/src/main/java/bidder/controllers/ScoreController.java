@@ -3,7 +3,6 @@ package bidder.controllers;
 import bidder.model.match.Score;
 import bidder.model.web.request.ScoreRequest;
 import bidder.model.web.response.ScoreResponse;
-import bidder.services.GameService;
 import bidder.services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +17,10 @@ import java.util.List;
 public class ScoreController {
 
     private final ScoreService scoreService;
-    private final GameService gameService;
 
     @Autowired
-    public ScoreController(ScoreService scoreService, GameService gameService) {
+    public ScoreController(ScoreService scoreService) {
         this.scoreService = scoreService;
-        this.gameService = gameService;
     }
 
     @GetMapping(path = "/all")
@@ -38,7 +35,6 @@ public class ScoreController {
     public ScoreResponse getScoresForUser(@PathVariable String userId) {
         ScoreResponse response = new ScoreResponse();
         response.setScores(scoreService.getScoresForUser(userId));
-        response.setGames(gameService.getGamesToBid(userId));
         return response;
     }
 

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 /** Created by Gawa on 01.05.17. */
 @RestController
 @RequestMapping("/api/user")

@@ -3,12 +3,13 @@ package bidder.model;
 import bidder.model.common.CommonAttributes;
 import bidder.model.match.Game;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.*;
-import com.fasterxml.jackson.datatype.jsr310.deser.*;
-import com.fasterxml.jackson.datatype.jsr310.ser.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /** Created by gawa on 06.05.17. */

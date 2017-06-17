@@ -1,6 +1,7 @@
 package bidder.repositories;
 
-import bidder.model.users.*;
+import bidder.model.users.Bidder;
+import bidder.model.users.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

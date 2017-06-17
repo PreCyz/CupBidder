@@ -1,6 +1,9 @@
 package bidder.services;
 
-import bidder.model.users.*;
+import bidder.model.users.Admin;
+import bidder.model.users.Bidder;
+import bidder.model.users.Gambler;
+import bidder.model.users.User;
 
 import java.util.List;
 

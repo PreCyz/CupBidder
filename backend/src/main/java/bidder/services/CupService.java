@@ -9,9 +9,9 @@ import java.util.List;
 public interface CupService {
 	void dropCups();
 	Cup addCup(Cup cup);
-    List<Cup> getAllCups();
+	Cup getCup(String cupId);
+	List<Cup> getAllCups();
 	void updateCup(String cupId, String name);
-	List<Game> getGamesToBid(String cupId, String userId);
-	Game getGame(String cupId, String gameId);
+	Game getGameFromCup(String cupId, String gameId);
 	List<Cup> getActiveCups();
 }

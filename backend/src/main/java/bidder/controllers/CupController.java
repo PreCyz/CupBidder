@@ -39,10 +39,4 @@ public class CupController {
         cupService.updateCup(cupId, updateCupRequest.getName());
     }
 
-    @GetMapping(path = "/gamesToBid/{cupId}/{userId}")
-    public GamesToBidResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
-                                            @PathVariable(name = "userId") String userId) {
-        GamesToBidResponse response = new GamesToBidResponse(cupService.getGamesToBid(cupId, userId));
-        return response;
-    }
 }

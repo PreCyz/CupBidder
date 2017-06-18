@@ -1,6 +1,7 @@
 package bidder.controllers;
 
 import bidder.model.web.response.BidResponse;
+import bidder.model.web.response.GamesToBidResponse;
 import bidder.services.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class BidController {
 
-    private BidService bidService;
+    private final BidService bidService;
 
     @Autowired
     public BidController(BidService bidService) {
@@ -22,6 +23,13 @@ public class BidController {
     public BidResponse getBidsForUser(@PathVariable String cupId, @PathVariable String userId) {
         BidResponse response = new BidResponse(bidService.getBidsForUser(cupId, userId));
         return  response;
+    }
+
+    @GetMapping(path = "/gamesToBid/{cupId}/{userId}")
+    public GamesToBidResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
+                                            @PathVariable(name = "userId") String userId) {
+        GamesToBidResponse response = new GamesToBidResponse(bidService.getGamesToBid(cupId, userId));
+        return response;
     }
 
 }

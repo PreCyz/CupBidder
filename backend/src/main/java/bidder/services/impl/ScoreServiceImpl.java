@@ -26,7 +26,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public Score addScore(String cupId, String userId, String gameId, int homeTeamScore, int awayTeamScore) {
-        Game game = cupService.getGame(cupId, gameId);
+        Game game = cupService.getGameFromCup(cupId, gameId);
         Score score = new Score(userId, game, homeTeamScore, awayTeamScore);
         score = scoreRepository.save(score);
         return score;

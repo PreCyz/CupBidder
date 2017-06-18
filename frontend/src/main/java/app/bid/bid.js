@@ -3,27 +3,10 @@ const ACTIVE_CUPS_GET = {
       url : BACKEND_HOST + "/api/cup/active"
 }
 
-const GAMES_ALL_GET = {
-    method : "GET",
-       url : BACKEND_HOST + "/api/game/all"
-}
-
 const GAMES_TO_BID_FOR_USER_GET = function(cupId, userId) {
     return {
         method : "GET",
-           url : BACKEND_HOST + "/api/cup/gamesToBid/"cupId+"/"+userId
-    }
-}
-
-const SCORES_ALL_GET = {
-    method : "GET",
-       url : BACKEND_HOST + "/api/score/all"
-}
-
-const SCORES_FOR_USER_GET = function(userId) {
-    return {
-        method : "GET",
-           url : BACKEND_HOST + "/api/score/all/"+userId
+           url : BACKEND_HOST + "/api/bid/gamesToBid/"+cupId+"/"+userId
     }
 }
 
@@ -83,6 +66,7 @@ let populateBids = function (games) {
 }
 
 mainAppModule.controller('BidController', function($rootScope, $http, $scope, $location) {
+    let chosenCupId = '';
     $rootScope.hideSignIn = true;
     $scope.showAddScore = true;
     $scope.showGamesToBid = false;
@@ -93,18 +77,21 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
     $scope.isGambler = $rootScope.isGambler();
     $scope.isWatcher = $rootScope.isWatcher();
 
-    $http(ACTIVE_CUPS_GET)
+    $http( ACTIVE_CUPS_GET )
     .then(function success(response) {
         $scope.cups = response.data.cups;
+        $scope.showHint = $scope.cups.length > 0;
     }, function handleError(response) {
         $scope.requestErrorMsg = response.statusText;
     });
 
     $scope.showGames = function(index) {
-        $http(GAMES_TO_BID_FOR_USER_GET($scope.cups[index].id, $rootScope.userId()))
+        chosenCupId = $scope.cups[index].id;
+        $http( GAMES_TO_BID_FOR_USER_GET(chosenCupId, $rootScope.userId()) )
         .then(function success(response) {
             $scope.games = populateBids(response.data.games);
             $scope.showGamesToBid = true;
+            $scope.showHint = false;
         }, function handleError(response) {
             $scope.requestErrorMsg = response.statusText;
         });

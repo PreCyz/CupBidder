@@ -1,7 +1,6 @@
 package bidder.model;
 
 import bidder.model.common.CommonAttributes;
-import bidder.model.match.Game;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

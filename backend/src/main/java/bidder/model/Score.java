@@ -1,5 +1,6 @@
-package bidder.model.match;
+package bidder.model;
 
+import bidder.model.Game;
 import bidder.model.common.CommonAttributes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,16 +11,18 @@ import java.util.List;
 @Document(collection = "scores")
 public class Score extends CommonAttributes {
 
-	private String userId;
-	private Game game;
-	private int homeTeamScore;
-	private int awayTeamScore;
-	private List<String> homeTeamScorers;
-	private List<String> awayTeamScorers;
+	protected String cupId;
+	protected String userId;
+	protected Game game;
+	protected int homeTeamScore;
+	protected int awayTeamScore;
+	protected List<String> homeTeamScorers;
+	protected List<String> awayTeamScorers;
 
 	public Score() {}
 
-	public Score(String userId, Game game, int homeTeamScore, int awayTeamScore) {
+	public Score(String cupId, String userId, Game game, int homeTeamScore, int awayTeamScore) {
+		this.cupId = cupId;
 		this.userId = userId;
 		this.game = game;
 		this.homeTeamScore = homeTeamScore;

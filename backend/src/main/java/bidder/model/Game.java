@@ -1,4 +1,4 @@
-package bidder.model.match;
+package bidder.model;
 
 import bidder.generators.IdGenerator;
 import bidder.model.common.CommonAttributes;

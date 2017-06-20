@@ -1,6 +1,6 @@
 package bidder.repositories;
 
-import bidder.model.match.Score;
+import bidder.model.Score;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

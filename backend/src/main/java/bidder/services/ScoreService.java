@@ -1,6 +1,6 @@
 package bidder.services;
 
-import bidder.model.match.Score;
+import bidder.model.Score;
 
 import java.util.List;
 

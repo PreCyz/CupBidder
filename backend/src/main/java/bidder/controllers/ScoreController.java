@@ -1,7 +1,7 @@
 package bidder.controllers;
 
-import bidder.model.match.Score;
-import bidder.model.web.request.ScoreRequest;
+import bidder.model.Score;
+import bidder.model.web.request.MatchDetailsRequest;
 import bidder.model.web.response.ScoreResponse;
 import bidder.services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class ScoreController {
         this.scoreService = scoreService;
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "")
     public ScoreResponse getAllScores() {
         List<Score> scores = scoreService.getAllScores();
         ScoreResponse response = new ScoreResponse();
@@ -31,23 +31,23 @@ public class ScoreController {
         return response;
     }
 
-    @GetMapping(path = "/all/{userId}")
+    @GetMapping(path = "/{userId}")
     public ScoreResponse getScoresForUser(@PathVariable String userId) {
         ScoreResponse response = new ScoreResponse();
         response.setScores(scoreService.getScoresForUser(userId));
         return response;
     }
 
-    @PostMapping(path = "/addScore")
-    public String addScore(@Valid @RequestBody ScoreRequest scoreRequest) {
-        Score score = scoreService.addScore(scoreRequest.getCupId(), scoreRequest.getUserId(),
-                scoreRequest.getGameId(), scoreRequest.getHomeTeamScore(), scoreRequest.getAwayTeamScore());
+    @PostMapping(path = "")
+    public String addScore(@Valid @RequestBody MatchDetailsRequest matchDetailsRequest) {
+        Score score = scoreService.addScore(matchDetailsRequest.getCupId(), matchDetailsRequest.getUserId(),
+                matchDetailsRequest.getGameId(), matchDetailsRequest.getHomeTeamScore(), matchDetailsRequest.getAwayTeamScore());
         return score.getId();
     }
 
-    @PostMapping(path = "/changeScore")
-    public void changeScore(@Valid @RequestBody ScoreRequest scoreRequest) {
-        scoreService.changeScore(scoreRequest.getUserId(), scoreRequest.getScoreId(), scoreRequest.getHomeTeamScore(),
-                scoreRequest.getAwayTeamScore());
+    @PutMapping(path = "")
+    public void changeScore(@Valid @RequestBody MatchDetailsRequest matchDetailsRequest) {
+        scoreService.changeScore(matchDetailsRequest.getUserId(), matchDetailsRequest.getScoreId(), matchDetailsRequest.getHomeTeamScore(),
+                matchDetailsRequest.getAwayTeamScore());
     }
 }

@@ -1,7 +1,7 @@
 package bidder.services.impl;
 
-import bidder.model.match.Game;
-import bidder.model.match.Score;
+import bidder.model.Game;
+import bidder.model.Score;
 import bidder.repositories.ScoreRepository;
 import bidder.services.CupService;
 import bidder.services.ScoreService;
@@ -27,7 +27,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public Score addScore(String cupId, String userId, String gameId, int homeTeamScore, int awayTeamScore) {
         Game game = cupService.getGameFromCup(cupId, gameId);
-        Score score = new Score(userId, game, homeTeamScore, awayTeamScore);
+        Score score = new Score(cupId, userId, game, homeTeamScore, awayTeamScore);
         score = scoreRepository.save(score);
         return score;
     }

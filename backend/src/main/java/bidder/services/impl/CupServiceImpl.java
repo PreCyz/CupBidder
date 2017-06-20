@@ -2,7 +2,7 @@ package bidder.services.impl;
 
 import bidder.model.Cup;
 import bidder.model.CupStatus;
-import bidder.model.match.Game;
+import bidder.model.Game;
 import bidder.repositories.CupRepository;
 import bidder.services.CupService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,12 @@
 const CUPS_GET = {
    method : "GET",
-      url : BACKEND_HOST + "/api/cup/all"
+      url : BACKEND_HOST + "/api/cup"
 }
 
-const SAVE_CUP_POST = function(updateCupData) {
+const CHANGE_CUP_PUT = function(updateCupData) {
     return {
-       method : 'POST',
-          url : BACKEND_HOST + '/api/cup/'+updateCupData.id+'/save',
+       method : 'PUT',
+          url : BACKEND_HOST + '/api/cup',
        /*headers: {
            `'Content-Type': undefined
        },*/
@@ -63,12 +63,12 @@ mainAppModule.controller('OverviewController', function($rootScope, $scope, $htt
         $scope.cupNames = [];
     }
 
-    $scope.saveCup = function(index) {
+    $scope.changeCup = function(index) {
         $scope.edit = false;
         $scope.cups[index].name = $scope.cupNames[index];
-        let cupId = $scope.cups[index].id;
-        let updateCupData = { id : cupId, name : $scope.cups[index].name }
-        $http( SAVE_CUP_POST(updateCupData) )
+        let chosenCupId = $scope.cups[index].id;
+        let updateCupData = { cupId : chosenCupId, name : $scope.cups[index].name }
+        $http( CHANGE_CUP_PUT(updateCupData) )
         .then(
             function success(updateCupData, status) {
                 $scope.saveCompleted = true;

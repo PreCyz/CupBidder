@@ -22,7 +22,7 @@ public class CupController {
         this.cupService = cupService;
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "")
     public CupResponse getCups() {
         CupResponse response = new CupResponse(cupService.getAllCups());
         return response;
@@ -34,7 +34,7 @@ public class CupController {
         return response;
     }
 
-    @PostMapping(path = "/{cupId}/save")
+    @PutMapping(path = "")
     public void save(@PathVariable String cupId, @Valid @RequestBody UpdateCupRequest updateCupRequest) {
         cupService.updateCup(cupId, updateCupRequest.getName());
     }

@@ -17,7 +17,7 @@
                 <td ng-if="isAdmin">
                     <input ng-if="!edit" type="button" class="btn btn-primary btn-xs" value="Edit" ng-click="editCup($index)">
                     <span ng-if="edit">
-                        <button type="button" class="btn btn-success btn-xs" ng-click="saveCup($index)">Save</button>
+                        <button type="button" class="btn btn-success btn-xs" ng-click="changeCup($index)">Save</button>
                         <button type="button" class="btn btn-info btn-xs" ng-click="cancelEditing()">Cancel</button>
                     </span>
                 </td>

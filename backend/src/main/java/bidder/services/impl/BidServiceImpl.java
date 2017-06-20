@@ -2,8 +2,8 @@ package bidder.services.impl;
 
 import bidder.model.Bid;
 import bidder.model.Cup;
-import bidder.model.match.Game;
-import bidder.model.match.Score;
+import bidder.model.Game;
+import bidder.model.Score;
 import bidder.repositories.BidRepository;
 import bidder.services.BidService;
 import bidder.services.CupService;

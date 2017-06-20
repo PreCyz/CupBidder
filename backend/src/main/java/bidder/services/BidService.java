@@ -1,7 +1,7 @@
 package bidder.services;
 
 import bidder.model.Bid;
-import bidder.model.match.Game;
+import bidder.model.Game;
 
 import java.util.List;
 

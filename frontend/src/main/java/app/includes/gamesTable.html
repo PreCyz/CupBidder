@@ -25,16 +25,22 @@
         </td>
         <td> {{ game.awayTeamName }} </td>
         <td ng-if="showAddScore">
-            <button ng-if="!game.bidSet" type="button" class="btn btn-success btn-xs" ng-click="addScore($index)">
-                Add
-                <span ng-if="isAdmin"> score</span>
-                <span ng-if="!isAdmin"> bid</span>
-            </button>
-            <button ng-if="game.bidSet" type="button" class="btn btn-warning btn-xs" ng-click="changeScore($index)">
-                Change
-                <span ng-if="isAdmin"> score</span>
-                <span ng-if="!isAdmin"> bid</span>
-            </button>
+            <div ng-if="isAdmin">
+                <button ng-if="!game.bidSet" type="button" class="btn btn-success btn-xs" ng-click="addScore($index)">
+                    Add score
+                </button>
+                <button ng-if="game.bidSet" type="button" class="btn btn-warning btn-xs" ng-click="changeScore($index)">
+                    Change score
+                </button>
+            </div>
+            <div ng-if="!isAdmin">
+                <button ng-if="!game.bidSet" type="button" class="btn btn-success btn-xs" ng-click="addBid($index)">
+                    Add bid
+                </button>
+                <button ng-if="game.bidSet" type="button" class="btn btn-warning btn-xs" ng-click="changeBid($index)">
+                    Change bid
+                </button>
+            </div>
         </td>
         <td> {{ game.startDateTime | date : 'EEEE - MMM d @ H:mm' }} </td>
         <td ng-if="showAddScore">

@@ -13,16 +13,32 @@ const GAMES_TO_BID_FOR_USER_GET = function(cupId, userId) {
 const ADD_SCORE_POST = function(scoreData) {
     return {
         method : "POST",
-           url : BACKEND_HOST + "/api/score/addScore",
+           url : BACKEND_HOST + "/api/score",
           data : scoreData
     }
 }
 
-const CHANGE_SCORE_POST = function(scoreData) {
+const CHANGE_SCORE_PUT = function(scoreData) {
+    return {
+        method : "PUT",
+           url : BACKEND_HOST + "/api/score",
+          data : scoreData
+    }
+}
+
+const ADD_BID_POST = function(bidData) {
     return {
         method : "POST",
-           url : BACKEND_HOST + "/api/score/changeScore",
-          data : scoreData
+           url : BACKEND_HOST + "api/bid",
+          data : bidData
+    }
+}
+
+const CHANGE_BID_PUT = function(bidData) {
+    return {
+        method : "PUT",
+           url : BACKEND_HOST + "api/bid",
+          data : bidData
     }
 }
 
@@ -102,7 +118,7 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
         if (isValidScore($scope.games[index])) {
 
             let scoreData = {
-                cupId : '',
+                cupId : chosenCupId,
                 userId : $rootScope.userId(),
                 gameId : $scope.games[index].id,
                 homeTeamScore : $scope.games[index].homeTeamScore.trim(),
@@ -128,6 +144,7 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
         if (isValidScore($scope.games[index])) {
 
             let scoreData = {
+                cupId : chosenCupId,
                 userId : $rootScope.userId(),
                 scoreId : $scope.games[index].scoreId,
                 homeTeamScore : $scope.games[index].homeTeamScore.trim(),
@@ -135,7 +152,7 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
             };
 
             console.log("call score update");
-            $http( CHANGE_SCORE_POST(scoreData) )
+            $http( CHANGE_SCORE_PUT(scoreData) )
             .then(
                 function success(scoreData, status) {
                     $scope.saveCompleted = true;
@@ -146,6 +163,57 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
             );
         }
     }
+
+    $scope.addBid = function(index) {
+            console.log('addBid('+index+') call.');
+            if (isValidScore($scope.games[index])) {
+
+                let bidData = {
+                    cupId : chosenCupId,
+                    userId : $rootScope.userId(),
+                    gameId : $scope.games[index].id,
+                    homeTeamScore : $scope.games[index].homeTeamScore.trim(),
+                    awayTeamScore : $scope.games[index].awayTeamScore.trim()
+                };
+
+                console.log("call bid add");
+                $http( ADD_BID_POST(bidData) )
+                .then(
+                    function success(scoreData, status, response) {
+                        $scope.saveCompleted = true;
+                        $scope.games[index].scoreId = response.data;
+                    },
+                    function handleError(scope, response) {
+                        $scope.requestErrorMsg = response.statusText;
+                    }
+                );
+            }
+        }
+
+        $scope.changeBid = function(index) {
+            console.log('changeBid('+index+') call.');
+            if (isValidScore($scope.games[index])) {
+
+                let bidData = {
+                    cupId : chosenCupId,
+                    userId : $rootScope.userId(),
+                    scoreId : $scope.games[index].scoreId,
+                    homeTeamScore : $scope.games[index].homeTeamScore.trim(),
+                    awayTeamScore : $scope.games[index].awayTeamScore.trim()
+                };
+
+                console.log("call bid update");
+                $http( CHANGE_BID_PUT(bidData) )
+                .then(
+                    function success(bidData, status) {
+                        $scope.saveCompleted = true;
+                    },
+                    function handleError(scope, response) {
+                        $scope.requestErrorMsg = response.statusText;
+                    }
+                );
+            }
+        }
 
     $scope.logout = function() {
         console.log('logout() call.')

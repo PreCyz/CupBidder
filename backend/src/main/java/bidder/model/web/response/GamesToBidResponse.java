@@ -1,6 +1,6 @@
 package bidder.model.web.response;
 
-import bidder.model.match.Game;
+import bidder.model.Game;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;

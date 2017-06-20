@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 /** Created by Gawa on 01/06/17.*/
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ScoreRequest {
+public class MatchDetailsRequest {
 
     @NotNull
     private String cupId;
@@ -19,6 +19,7 @@ public class ScoreRequest {
 
     private String gameId;
     private String scoreId;
+    private String bidId;
 
     public String getCupId() {
         return cupId;

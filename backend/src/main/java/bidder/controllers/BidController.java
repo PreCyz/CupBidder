@@ -2,7 +2,6 @@ package bidder.controllers;
 
 import bidder.model.web.request.MatchDetailsRequest;
 import bidder.model.web.response.BidResponse;
-import bidder.model.web.response.GamesToBidResponse;
 import bidder.services.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,23 +27,18 @@ public class BidController {
         return  response;
     }
 
-    @GetMapping(path = "/gamesToBid/{cupId}/{userId}")
-    public GamesToBidResponse getGamesToBid(@PathVariable(name = "cupId") String cupId,
-                                            @PathVariable(name = "userId") String userId) {
-        GamesToBidResponse response = new GamesToBidResponse(bidService.getGamesToBid(cupId, userId));
-        return response;
-    }
-
     @PostMapping(path = "")
     public void addBid(@Valid @RequestBody MatchDetailsRequest matchDetailsRequest) {
-
+        bidService.addBid(matchDetailsRequest.getCupId(), matchDetailsRequest.getUserId(),
+                matchDetailsRequest.getGameId(), matchDetailsRequest.getHomeTeamScore(),
+                matchDetailsRequest.getAwayTeamScore());
 
     }
 
     @PutMapping(path = "")
     public void changeBid(@Valid @RequestBody MatchDetailsRequest matchDetailsRequest) {
-
-
+        bidService.changeBid(matchDetailsRequest.getUserId(), matchDetailsRequest.getBidId(),
+                matchDetailsRequest.getHomeTeamScore(), matchDetailsRequest.getAwayTeamScore());
     }
 
 }

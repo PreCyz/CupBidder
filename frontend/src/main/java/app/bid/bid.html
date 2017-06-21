@@ -16,7 +16,7 @@
     <div ng-if="showHint">Choose cup to see possible bids.</div>
 
     <span ng-repeat="cup in cups track by cup.id">
-        <button type="button" class="btn btn-primary btn-xs" ng-click="showGames($index)">{{cup.name}}</button>
+        <button type="button" class="btn btn-primary btn-xs" ng-click="showBids($index)">{{cup.name}}</button>
     </span>
 
     <div ng-if="showGamesToBid" ng-include="'includes/gamesTable.html'" class="table-responsive marginLeft15"></div>

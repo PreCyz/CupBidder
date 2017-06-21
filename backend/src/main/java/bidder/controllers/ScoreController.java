@@ -31,23 +31,23 @@ public class ScoreController {
         return response;
     }
 
-    @GetMapping(path = "/{userId}")
-    public ScoreResponse getScoresForUser(@PathVariable String userId) {
+    @GetMapping(path = "/{cupId}")
+    public ScoreResponse getScoresForCup(@PathVariable String cupId) {
         ScoreResponse response = new ScoreResponse();
-        response.setScores(scoreService.getScoresForUser(userId));
+        response.setScores(scoreService.getScoresForCup(cupId));
         return response;
     }
 
     @PostMapping(path = "")
     public String addScore(@Valid @RequestBody MatchDetailsRequest matchDetailsRequest) {
-        Score score = scoreService.addScore(matchDetailsRequest.getCupId(), matchDetailsRequest.getUserId(),
-                matchDetailsRequest.getGameId(), matchDetailsRequest.getHomeTeamScore(), matchDetailsRequest.getAwayTeamScore());
+        Score score = scoreService.addScore(matchDetailsRequest.getCupId(), matchDetailsRequest.getGameId(),
+                matchDetailsRequest.getHomeTeamScore(), matchDetailsRequest.getAwayTeamScore());
         return score.getId();
     }
 
     @PutMapping(path = "")
     public void changeScore(@Valid @RequestBody MatchDetailsRequest matchDetailsRequest) {
-        scoreService.changeScore(matchDetailsRequest.getUserId(), matchDetailsRequest.getScoreId(), matchDetailsRequest.getHomeTeamScore(),
+        scoreService.changeScore(matchDetailsRequest.getScoreId(), matchDetailsRequest.getHomeTeamScore(),
                 matchDetailsRequest.getAwayTeamScore());
     }
 }

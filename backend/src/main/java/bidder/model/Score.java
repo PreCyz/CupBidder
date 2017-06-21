@@ -1,9 +1,9 @@
 package bidder.model;
 
-import bidder.model.Game;
 import bidder.model.common.CommonAttributes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,31 +11,31 @@ import java.util.List;
 @Document(collection = "scores")
 public class Score extends CommonAttributes {
 
-	protected String cupId;
-	protected String userId;
-	protected Game game;
-	protected int homeTeamScore;
-	protected int awayTeamScore;
-	protected List<String> homeTeamScorers;
-	protected List<String> awayTeamScorers;
+	@NotNull
+	private String cupId;
+	@NotNull
+	private Game game;
+	private Integer homeTeamScore;
+	private Integer awayTeamScore;
+	private List<String> homeTeamScorers;
+	private List<String> awayTeamScorers;
 
 	public Score() {}
 
-	public Score(String cupId, String userId, Game game, int homeTeamScore, int awayTeamScore) {
+	public Score(String cupId, Game game, Integer homeTeamScore, Integer awayTeamScore) {
 		this.cupId = cupId;
-		this.userId = userId;
 		this.game = game;
 		this.homeTeamScore = homeTeamScore;
 		this.awayTeamScore = awayTeamScore;
 		this.creationDate = LocalDateTime.now();
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getCupId() {
+		return cupId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setCupId(String cupId) {
+		this.cupId = cupId;
 	}
 
 	public Game getGame() {
@@ -46,19 +46,19 @@ public class Score extends CommonAttributes {
 		this.game = game;
 	}
 
-	public int getHomeTeamScore() {
+	public Integer getHomeTeamScore() {
 		return homeTeamScore;
 	}
 
-	public void setHomeTeamScore(int homeTeamScore) {
+	public void setHomeTeamScore(Integer homeTeamScore) {
 		this.homeTeamScore = homeTeamScore;
 	}
 
-	public int getAwayTeamScore() {
+	public Integer getAwayTeamScore() {
 		return awayTeamScore;
 	}
 
-	public void setAwayTeamScore(int awayTeamScore) {
+	public void setAwayTeamScore(Integer awayTeamScore) {
 		this.awayTeamScore = awayTeamScore;
 	}
 

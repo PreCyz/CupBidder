@@ -7,5 +7,5 @@ import java.util.List;
 
 /** Created by gawa on 06.05.17. */
 public interface ScoreRepository extends MongoRepository<Score, String> {
-    List<Score> findByUserId(String userId);
+    List<Score> findByCupId(String userId);
 }

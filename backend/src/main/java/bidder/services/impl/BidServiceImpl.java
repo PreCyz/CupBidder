@@ -3,15 +3,17 @@ package bidder.services.impl;
 import bidder.model.Bid;
 import bidder.model.Cup;
 import bidder.model.Game;
-import bidder.model.Score;
 import bidder.repositories.BidRepository;
 import bidder.services.BidService;
 import bidder.services.CupService;
-import bidder.services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /** Created by Gawa on 16/06/17.*/
 @Service
@@ -19,28 +21,52 @@ public class BidServiceImpl implements BidService {
 
     private final BidRepository bidRepository;
     private final CupService cupService;
-    private final ScoreService scoreService;
 
     @Autowired
-    public BidServiceImpl(BidRepository bidRepository, CupService cupService, ScoreService scoreService) {
+    public BidServiceImpl(BidRepository bidRepository, CupService cupService) {
         this.bidRepository = bidRepository;
         this.cupService = cupService;
-        this.scoreService = scoreService;
     }
 
     @Override
     public List<Bid> getBidsForUser(String cupId, String userId) {
-        return bidRepository.findByCupIdAndUserId(cupId, userId);
+        List<Bid> bids = bidRepository.findByCupIdAndUserId(cupId, userId);
+        Set<String> existingBids = bids.stream().map(bid -> bid.getGame().getId()).collect(Collectors.toSet());
+
+        Cup cup = cupService.getCup(cupId);
+        List<Bid> result = new ArrayList<>(cup.getGames().size());
+        result.addAll(bids);
+        final LocalDateTime now = LocalDateTime.now();
+        cup.getGames().forEach(game -> {
+            if (!existingBids.contains(game.getId())) {
+                result.add(new Bid(cupId, game, userId));
+            }
+        });
+
+        result.forEach(bid -> bid.setAvailable(now.isBefore(bid.getGame().getStartDateTime())));
+        return result;
     }
 
     @Override
-    public List<Game> getGamesToBid(String cupId, String userId) {
-        List<Score> scores = scoreService.getScoresForUser(userId);
-        Cup cup = cupService.getCup(cupId);
-        if (scores == null || scores.isEmpty()) {
-            return cup.getGames();
-        }
-        //TODO: filter out games from cup, from games from scores
-        return cup.getGames();
+    public Bid addBid(String cupId, String userId, String gameId, int homeTeamScore, int awayTeamScore) {
+        Game game = cupService.getGameFromCup(cupId, gameId);
+        Bid bid = bidRepository.insert(new Bid(cupId, game, homeTeamScore, awayTeamScore, userId));
+        return bid;
     }
+
+    @Override
+    public void changeBid(String userId, String bidId, int homeTeamScore, int awayTeamScore) {
+        Bid bid = bidRepository.findOne(bidId);
+        if (bid == null) {
+            throw new RuntimeException(String.format("Can't find bid %s for user %s.", bidId, userId));
+        }
+        if (!userId.equals(bid.getUserId())) {
+            throw new RuntimeException(String.format("Bid %s belongs to another user.", bidId));
+        }
+        bid.setHomeTeamScore(homeTeamScore);
+        bid.setAwayTeamScore(awayTeamScore);
+        bid.setLastModificationDate(LocalDateTime.now());
+        bidRepository.save(bid);
+    }
+
 }

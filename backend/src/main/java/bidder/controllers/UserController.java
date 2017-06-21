@@ -27,7 +27,7 @@ public class UserController {
 		return userService.login(loginRequest.getEmail(), loginRequest.getPassword());
 	}
 
-	@GetMapping(path = "/all")
+	@GetMapping(path = "")
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}

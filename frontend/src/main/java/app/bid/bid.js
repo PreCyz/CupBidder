@@ -3,10 +3,10 @@ const ACTIVE_CUPS_GET = {
       url : BACKEND_HOST + "/api/cup/active"
 }
 
-const GAMES_TO_BID_FOR_USER_GET = function(cupId, userId) {
+const BIDS_FOR_USER_GET = function(cupId, userId) {
     return {
         method : "GET",
-           url : BACKEND_HOST + "/api/bid/gamesToBid/"+cupId+"/"+userId
+           url : BACKEND_HOST + "/api/bid/"+cupId+"/"+userId
     }
 }
 
@@ -101,11 +101,11 @@ mainAppModule.controller('BidController', function($rootScope, $http, $scope, $l
         $scope.requestErrorMsg = response.statusText;
     });
 
-    $scope.showGames = function(index) {
+    $scope.showBids = function(index) {
         chosenCupId = $scope.cups[index].id;
-        $http( GAMES_TO_BID_FOR_USER_GET(chosenCupId, $rootScope.userId()) )
+        $http( BIDS_FOR_USER_GET(chosenCupId, $rootScope.userId()) )
         .then(function success(response) {
-            $scope.games = populateBids(response.data.games);
+            $scope.games = populateBids(response.data.bids);
             $scope.showGamesToBid = true;
             $scope.showHint = false;
         }, function handleError(response) {

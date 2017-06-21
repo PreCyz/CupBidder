@@ -25,20 +25,16 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Score addScore(String cupId, String userId, String gameId, int homeTeamScore, int awayTeamScore) {
+    public Score addScore(String cupId, String gameId, int homeTeamScore, int awayTeamScore) {
         Game game = cupService.getGameFromCup(cupId, gameId);
-        Score score = new Score(cupId, userId, game, homeTeamScore, awayTeamScore);
-        score = scoreRepository.save(score);
+        Score score = scoreRepository.insert(new Score(cupId, game, homeTeamScore, awayTeamScore));
         return score;
     }
 
-    public void changeScore(String userId, String scoreId, int homeTeamScore, int awayTeamScore) {
+    public void changeScore(String scoreId, int homeTeamScore, int awayTeamScore) {
         Score score = scoreRepository.findOne(scoreId);
         if (score == null) {
             throw new RuntimeException(String.format("Can't find score %s.", scoreId));
-        }
-        if (!userId.equals(score.getUserId())) {
-            throw new RuntimeException(String.format("Score %s belongs to another user.", scoreId));
         }
         score.setHomeTeamScore(homeTeamScore);
         score.setAwayTeamScore(awayTeamScore);
@@ -51,7 +47,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<Score> getScoresForUser(String userId) {
-        return scoreRepository.findByUserId(userId);
+    public List<Score> getScoresForCup(String cupId) {
+        return scoreRepository.findByCupId(cupId);
     }
 }

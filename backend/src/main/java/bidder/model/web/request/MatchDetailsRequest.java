@@ -11,12 +11,11 @@ public class MatchDetailsRequest {
     @NotNull
     private String cupId;
     @NotNull
-    private String userId;
-    @NotNull
     private int homeTeamScore;
     @NotNull
     private int awayTeamScore;
 
+    private String userId;
     private String gameId;
     private String scoreId;
     private String bidId;
@@ -45,4 +44,7 @@ public class MatchDetailsRequest {
         return scoreId;
     }
 
+    public String getBidId() {
+        return bidId;
+    }
 }

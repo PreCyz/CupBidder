@@ -24,7 +24,7 @@ public class BidController {
     @GetMapping(path = "/{cupId}/{userId}")
     public BidResponse getBidsForUser(@PathVariable String cupId, @PathVariable String userId) {
         BidResponse response = new BidResponse(bidService.getBidsForUser(cupId, userId));
-        return  response;
+        return response;
     }
 
     @PostMapping(path = "")

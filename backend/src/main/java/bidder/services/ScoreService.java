@@ -3,11 +3,12 @@ package bidder.services;
 import bidder.model.Score;
 
 import java.util.List;
+import java.util.Set;
 
 /** Created by gawa on 06.05.17. */
 public interface ScoreService {
     Score addScore(String cupId, String gameId, int homeTeamScore, int awayTeamScore);
     void changeScore(String scoreId, int homeTeamScore, int awayTeamScore);
-    List<Score> getAllScores();
-    List<Score> getScoresForCup(String userId);
+    Set<Score> getAllScores();
+    Set<Score> getScoresForCup(String userId);
 }

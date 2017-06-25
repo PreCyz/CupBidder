@@ -3,6 +3,7 @@ package bidder.services.impl;
 import bidder.model.Bid;
 import bidder.model.Cup;
 import bidder.model.Game;
+import bidder.model.comparator.ScoreComparator;
 import bidder.repositories.BidRepository;
 import bidder.services.BidService;
 import bidder.services.CupService;
@@ -10,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /** Created by Gawa on 16/06/17.*/
@@ -29,12 +30,12 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public List<Bid> getBidsForUser(String cupId, String userId) {
+    public Set<Bid> getBidsForUser(String cupId, String userId) {
         List<Bid> bids = bidRepository.findByCupIdAndUserId(cupId, userId);
         Set<String> existingBids = bids.stream().map(bid -> bid.getGame().getId()).collect(Collectors.toSet());
 
         Cup cup = cupService.getCup(cupId);
-        List<Bid> result = new ArrayList<>(cup.getGames().size());
+        Set<Bid> result = new TreeSet<>(ScoreComparator.getInstance());
         result.addAll(bids);
         final LocalDateTime now = LocalDateTime.now();
         cup.getGames().forEach(game -> {

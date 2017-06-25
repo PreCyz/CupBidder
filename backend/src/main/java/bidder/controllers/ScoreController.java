@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 /** Created by Gawa on 11/06/17.*/
 @RestController
@@ -25,7 +26,7 @@ public class ScoreController {
 
     @GetMapping(path = "")
     public ScoreResponse getAllScores() {
-        List<Score> scores = scoreService.getAllScores();
+        Set<Score> scores = scoreService.getAllScores();
         ScoreResponse response = new ScoreResponse();
         response.setScores(scores);
         return response;

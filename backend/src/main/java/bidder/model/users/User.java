@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /** Created by gawa on 01.05.17. */
 @Document(collection = "users")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class User extends CommonAttributes {
+public class User extends CommonAttributes implements Comparable<User> {
 
 	private String firstName;
 	private String lastName;
@@ -50,5 +50,19 @@ public class User extends CommonAttributes {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		if (firstName.compareTo(o.getFirstName()) != 0) {
+			return firstName.compareTo(o.getFirstName());
+		}
+		if (lastName.compareTo(o.getLastName()) != 0) {
+			return lastName.compareTo(o.getLastName());
+		}
+		if (email.compareTo(o.getEmail()) != 0) {
+			return email.compareTo(o.getEmail());
+		}
+		return type.compareTo(o.getType());
 	}
 }

@@ -1,6 +1,6 @@
 package bidder.model;
 
-import bidder.generators.IdGenerator;
+import bidder.generator.IdGenerator;
 import bidder.model.common.CommonAttributes;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

@@ -1,11 +1,11 @@
-import bidder.generators.IdGenerator;
+import bidder.generator.IdGenerator;
 import bidder.model.Cup;
 import bidder.model.CupStatus;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.*;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.io.File;
+import java.io.IOException;
 
 /** Created by gawa on 07.05.17. */
 public class ModelMapper {
